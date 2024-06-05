@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterOutlet, provideRouter } from '@angular/router';
 
 @Component({
   selector: 'app-admin',

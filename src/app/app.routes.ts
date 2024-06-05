@@ -1,14 +1,14 @@
 import { Routes } from '@angular/router';
-import { ReaderComponent } from './reader/reader.component';
+import { readerRoutes } from './reader/reader.routes';
 
 export const routes: Routes = [
   {
     path: '',
-    component: ReaderComponent,
+    children: readerRoutes,
   },
   {
     path: 'admin',
-    loadComponent: () => import('./admin/admin.component').then(m => m.AdminComponent),
+    loadChildren: () => import('./admin/admin.routes').then(r => r.adminRoutes),
     title: 'Admin',
   },
 ];
