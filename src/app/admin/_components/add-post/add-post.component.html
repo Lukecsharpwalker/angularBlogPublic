@@ -1,0 +1,20 @@
+<!-- src/app/blog-form/blog-form.component.html -->
+<form [formGroup]="blogForm" (ngSubmit)="onSubmit()">
+  <label for="title">Title:</label>
+  <input id="title" formControlName="title" required>
+  @if (blogForm.get('title')?.invalid && (blogForm.get('title')?.dirty || blogForm.get('title')?.touched)) {
+    @if (blogForm.get('title')?.errors?.['required']) {
+      <div>Title is required.</div>
+    }
+  }
+
+  <label for="content">Content:</label>
+  <input id="content" formControlName="content" required>
+  @if (blogForm.get('content')?.invalid && (blogForm.get('content')?.dirty || blogForm.get('content')?.touched)) {
+    @if (blogForm.get('content')?.errors?.['required']) {
+      <div>Content is required.</div>
+    }
+  }
+
+  <button type="submit" [disabled]="blogForm.invalid">Submit</button>
+</form>
