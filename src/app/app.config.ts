@@ -16,7 +16,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withFetch()),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
-    provideClientHydration(withEventReplay()),
+    provideClientHydration(),
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
