@@ -1,11 +1,13 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ApiService } from '../../_services/api.service';
+import { Firestore } from '@angular/fire/firestore';
 
 @Component({
   selector: 'blog-add-post',
   standalone: true,
   imports: [ReactiveFormsModule],
+  providers: [ApiService, Firestore],
   templateUrl: './add-post.component.html',
   styleUrl: './add-post.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
