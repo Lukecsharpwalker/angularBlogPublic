@@ -3,13 +3,13 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { ApiService } from '../../_services/api.service';
 import { Firestore, FirestoreModule} from '@angular/fire/firestore';
 import { HttpClient } from '@angular/common/http';
-import { Blog } from '../../../shared/_models/blog.interface';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'blog-add-post',
   standalone: true,
-  imports: [ReactiveFormsModule, FirestoreModule],
-  providers: [ApiService],
+  imports: [ReactiveFormsModule, FirestoreModule, AsyncPipe],
+  providers: [ApiService, HttpClient],
   templateUrl: './add-post.component.html',
   styleUrl: './add-post.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -25,7 +25,7 @@ export class AddPostComponent {
   constructor() {
     this.blogForm = this.fb.group({
       title: ['', [Validators.required]],
-      content: ['', [Validators.required]]
+      content: ['', [Validators.required]],
     });
   }
 
