@@ -9,7 +9,7 @@ import { AsyncPipe } from '@angular/common';
   selector: 'blog-add-post',
   standalone: true,
   imports: [ReactiveFormsModule, FirestoreModule, AsyncPipe],
-  providers: [ApiService, HttpClient],
+  providers: [ApiService],
   templateUrl: './add-post.component.html',
   styleUrl: './add-post.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -19,8 +19,6 @@ export class AddPostComponent {
 
   private fb = inject(FormBuilder);
   private apiService = inject(ApiService);
-  firestore = inject(Firestore);
-  http = inject(HttpClient);
 
   constructor() {
     this.blogForm = this.fb.group({
