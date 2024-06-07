@@ -5,5 +5,5 @@ export const adminRoutes: Routes = [
   {
     path: '',
     component: AddPostComponent,
-  },
+  }
 ];
