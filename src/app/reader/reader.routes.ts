@@ -1,9 +1,9 @@
 import { Routes } from '@angular/router';
-import { ReaderComponent } from './reader.component';
+import { MainPageComponent } from './_components/main-page/main-page.component';
 
 export const readerRoutes: Routes = [
   {
     path: '',
-    component: ReaderComponent,
+    component: MainPageComponent,
   },
 ];
