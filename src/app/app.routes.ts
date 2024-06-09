@@ -1,10 +1,11 @@
 import { Routes } from '@angular/router';
 import { readerRoutes } from './reader/reader.routes';
 import { adminRoutes } from './admin/admin.routes';
+import { MainPageComponent } from './reader/_components/main-page/main-page.component';
 
 export const routes: Routes = [
   {
-    path: '',
+    path: 'posts',
     children: readerRoutes,
   },
   {
