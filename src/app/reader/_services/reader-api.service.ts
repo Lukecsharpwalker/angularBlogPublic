@@ -4,16 +4,17 @@ import { Firestore, collection } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { Post } from '../../shared/_models/post.interface';
 import { getDoc } from 'firebase/firestore';
+import { Collections } from '../../shared/_enums/collections';
 
 @Injectable()
 export class ReaderApiService {
 
   private firestore = inject(Firestore);
 
-  blog$ = collectionData(collection(this.firestore, 'blog'), {idField: 'id'}) as Observable<Post[]>;
+  blog$ = collectionData(collection(this.firestore, Collections.POST), {idField: 'id'}) as Observable<Post[]>;
 
   async getPost(id: string): Promise< Post | null> {
-    return getDoc(doc(collection(this.firestore, 'blog'), id)).then((doc) => {
+    return getDoc(doc(collection(this.firestore, Collections.POST), id)).then((doc) => {
       if (doc.exists()) {
         return doc.data() as Post;
       } else {
@@ -24,11 +25,11 @@ export class ReaderApiService {
 
   getComments(postId: string) {
     return collectionData(
-      collection(this.firestore, `blog/${postId}/comment`), {idField: 'id'}) as Observable<Comment[]>;
+      collection(this.firestore, `${Collections.POST}/${postId}/${Collections.COMMENT}`), {idField: 'id'}) as Observable<Comment[]>;
   }
 
   addComment(postId: string, comment: Comment) {
-    const newTaskRef = doc(collection(this.firestore, `blog/${postId}/comment`));
+    const newTaskRef = doc(collection(this.firestore, `${Collections.COMMENT}/${postId}/${Collections.COMMENT}`));
      setDoc(newTaskRef, comment).finally(() => {
       console.log('comment added ', newTaskRef.id);
     });
