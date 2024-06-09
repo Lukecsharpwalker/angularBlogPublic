@@ -37,7 +37,6 @@
             "scripts": [],
             "server": "src/main.server.ts",
             "prerender": true,
-            "optimization": true,
             "ssr": {
               "entry": "server.ts"
             }
