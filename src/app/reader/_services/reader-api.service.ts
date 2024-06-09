@@ -11,7 +11,7 @@ export class ReaderApiService {
 
   private firestore = inject(Firestore);
 
-  post$ = collectionData(collection(this.firestore, Collections.POST), {idField: 'id'}) as Observable<Post[]>;
+  posts$: Observable<Post[]> = collectionData(collection(this.firestore, Collections.POST), {idField: 'id'}) as Observable<Post[]>;
 
   async getPost(id: string): Promise< Post | null> {
     return getDoc(doc(collection(this.firestore, Collections.POST), id)).then((doc) => {
