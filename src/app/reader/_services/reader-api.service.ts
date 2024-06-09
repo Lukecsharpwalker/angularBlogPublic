@@ -29,7 +29,7 @@ export class ReaderApiService {
   }
 
   addComment(postId: string, comment: Comment) {
-    const newTaskRef = doc(collection(this.firestore, `${Collections.COMMENT}/${postId}/${Collections.COMMENT}`));
+    const newTaskRef = doc(collection(this.firestore, `${Collections.POST}/${postId}/${Collections.COMMENT}`));
      setDoc(newTaskRef, comment).finally(() => {
       console.log('comment added ', newTaskRef.id);
     });
