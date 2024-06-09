@@ -1,5 +1,5 @@
 <p>
   {{post$ | async | json}}
 </p>
-<add-comment [postId]="id"></add-comment>
-<comments [comments$]="comments$()" ></comments>
+<add-comment [postId]="id"/>
+<comments [comments$]="comments$()" ngSkipHydration/>
