@@ -2,4 +2,4 @@
   {{post$ | async | json}}
 </p>
 <add-comment [postId]="id"/>
-<comments [comments$]="comments$()" ngSkipHydration/>
+<comments [comments$]="comments$()" @defer/>
