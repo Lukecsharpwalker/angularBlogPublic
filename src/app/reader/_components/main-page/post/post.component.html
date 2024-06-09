@@ -2,4 +2,6 @@
   {{post$ | async | json}}
 </p>
 <add-comment [postId]="id"/>
-<comments [comments$]="comments$()" @defer/>
+@defer {
+  <comments [comments$]="comments$()" />
+}
