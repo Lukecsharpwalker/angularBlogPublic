@@ -8,7 +8,7 @@ export const readerRoutes: Routes = [
     component: MainPageComponent,
   },
   {
-    path: 'post/:id',
+    path: ':id',
     component: PostComponent,
     pathMatch: 'full'
   }
