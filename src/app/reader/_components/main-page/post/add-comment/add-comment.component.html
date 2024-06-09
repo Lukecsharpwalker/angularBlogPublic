@@ -1,0 +1,11 @@
+<form [formGroup]="commentForm" (ngSubmit)="onSubmit()">
+  <label for="content">Content:</label>
+  <input id="content" formControlName="content" required>
+  @if (commentForm.get('content')?.invalid && (commentForm.get('content')?.dirty ||
+  commentForm.get('content')?.touched)) {
+    @if (commentForm.get('content')?.errors?.['required']) {
+    <div>Content is required.</div>
+    }
+  }
+  <button type="submit" [disabled]="commentForm.invalid">Submit</button>
+</form>
