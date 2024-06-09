@@ -1,27 +1,36 @@
 import { Injectable, inject } from '@angular/core';
-import { collectionData, doc } from '@angular/fire/firestore';
+import { collectionData, doc, setDoc } from '@angular/fire/firestore';
 import { Firestore, collection } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { Blog } from '../../shared/_models/blog.interface';
+import { Post } from '../../shared/_models/post.interface';
 import { getDoc } from 'firebase/firestore';
 
 @Injectable()
 export class ReaderApiService {
 
   private firestore = inject(Firestore);
-  private collection = collection(this.firestore, 'blog');
 
-  private collection2 = collection(this.firestore, 'blog');
+  blog$ = collectionData(collection(this.firestore, 'blog'), {idField: 'id'}) as Observable<Post[]>;
 
-  blog$ = collectionData(this.collection, {idField: 'id'}) as Observable<Blog[]>;
-
-  async getPost(id: string): Promise< Blog | null> {
+  async getPost(id: string): Promise< Post | null> {
     return getDoc(doc(collection(this.firestore, 'blog'), id)).then((doc) => {
       if (doc.exists()) {
-        return doc.data() as Blog;
+        return doc.data() as Post;
       } else {
         return null;
       }
+    });
+  }
+
+  getComments(postId: string) {
+    return collectionData(
+      collection(this.firestore, `blog/${postId}/comment`), {idField: 'id'}) as Observable<Comment[]>;
+  }
+
+  addComment(postId: string, comment: Comment) {
+    const newTaskRef = doc(collection(this.firestore, `blog/${postId}/comment`));
+     setDoc(newTaskRef, comment).finally(() => {
+      console.log('comment added ', newTaskRef.id);
     });
   }
 }
