@@ -3,6 +3,8 @@ import { ReaderApiService } from '../../_services/reader-api.service';
 import { FirestoreModule } from '@angular/fire/firestore';
 import { AsyncPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { Observable } from 'rxjs';
+import { Post } from '../../../shared/_models/post.interface';
 
 @Component({
   selector: 'app-main-page',
@@ -15,5 +17,5 @@ import { RouterLink } from '@angular/router';
 })
 export class MainPageComponent {
   apiService = inject(ReaderApiService);
-  blog$ = this.apiService.post$;
+  posts$: Observable<Post[]> = this.apiService.posts$;
 }
