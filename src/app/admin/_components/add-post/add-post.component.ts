@@ -29,7 +29,7 @@ export class AddPostComponent {
 
   onSubmit(): void {
     if (this.blogForm.valid) {
-      this.apiService.addBlog(this.blogForm.value);
+      this.apiService.addPost(this.blogForm.value);
     }
   }
 
