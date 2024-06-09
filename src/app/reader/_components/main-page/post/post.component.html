@@ -1,7 +1,9 @@
-<p>
-  {{post$ | async | json}}
-</p>
-<add-comment [postId]="id"/>
+<p *ngIf="post$ | async as post">
+  {{ post | json}}
+  <add-comment [postId]="id"/>
 @defer {
   <comments [comments$]="comments$()" />
+
 }
+<comments [comments$]="comments$()" />
+</p>
