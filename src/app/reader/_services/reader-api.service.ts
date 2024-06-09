@@ -1,9 +1,8 @@
 import { Injectable, inject } from '@angular/core';
-import { collectionData, doc, setDoc } from '@angular/fire/firestore';
+import { collectionData, doc, setDoc, getDoc } from '@angular/fire/firestore';
 import { Firestore, collection } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { Post } from '../../shared/_models/post.interface';
-import { getDoc } from 'firebase/firestore';
 import { Collections } from '../../shared/_enums/collections';
 
 @Injectable()
