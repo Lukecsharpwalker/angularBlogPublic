@@ -15,5 +15,5 @@ import { RouterLink } from '@angular/router';
 })
 export class MainPageComponent {
   apiService = inject(ReaderApiService);
-  blog$ = this.apiService.blog$;
+  blog$ = this.apiService.post$;
 }
