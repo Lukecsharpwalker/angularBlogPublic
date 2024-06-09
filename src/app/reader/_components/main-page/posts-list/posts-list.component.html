@@ -1,0 +1,8 @@
+<div class="container">
+  <div class="row">
+    @for (item of posts$ | async; track item.id) {
+      <a  [routerLink]="['details',item.id]" >{{ item.title}}</a>
+      <p>{{item.content}}</p>
+    }
+    </div>
+  </div>

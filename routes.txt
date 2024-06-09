@@ -1,3 +1,3 @@
-/
-/post
-/post/
+/posts
+/posts/
+posts/details/2lkZK8w4QWvjEIsduqrh
