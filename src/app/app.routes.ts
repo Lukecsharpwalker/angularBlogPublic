@@ -1,7 +1,5 @@
 import { Routes } from '@angular/router';
 import { readerRoutes } from './reader/reader.routes';
-import { adminRoutes } from './admin/admin.routes';
-import { MainPageComponent } from './reader/_components/main-page/main-page.component';
 
 export const routes: Routes = [
   {
@@ -12,5 +10,9 @@ export const routes: Routes = [
     path: 'admin',
     loadChildren: () => import('./admin/admin.routes').then(r => r.adminRoutes),
     title: 'Admin',
+  },
+  {
+    path:'**',
+    redirectTo: 'posts'
   },
 ];
