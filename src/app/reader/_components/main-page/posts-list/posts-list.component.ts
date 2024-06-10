@@ -11,7 +11,7 @@ import { PostCardComponent } from '../../presentational-components/post-card/pos
 @Component({
   selector: 'app-posts-list',
   standalone: true,
-  imports: [FirestoreModule, AsyncPipe, RouterLink, PostComponent, RouterModule, PostCardComponent, NgClass],
+  imports: [FirestoreModule, AsyncPipe, RouterLink, PostComponent, PostCardComponent, NgClass],
   providers: [ReaderApiService],
   templateUrl: './posts-list.component.html',
   styleUrl: './posts-list.component.scss',
