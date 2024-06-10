@@ -1,1 +1,62 @@
 /* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Base button */
+.btn {
+  @apply text-base font-medium rounded-lg p-3;
+}
+
+/* button primary */
+.btn--primary {
+  @apply bg-primary text-white;
+}
+
+/* button secondary */
+.btn--secondary {
+  @apply bg-quaternary text-black;
+}
+
+/* Hover effects */
+.btn--primary:hover, .btn--secondary:hover {
+  @apply shadow-lg -translate-y-0.5;
+}
+
+/* Import TailwindCSS */
+@import 'tailwindcss/utilities';
+
+/* Additional styles for the card component */
+.post-card {
+  @apply bg-white rounded-lg shadow-md overflow-hidden transition-transform transform hover:scale-105;
+}
+
+.card-default {
+  @apply p-4;
+  width: 100%;
+}
+
+.card-main {
+  @apply p-6 col-span-3 row-span-1;
+  width: 100%;
+}
+
+.post-image {
+  @apply w-full h-48 object-cover;
+}
+
+.post-content {
+  @apply p-4;
+}
+
+.post-title {
+  @apply text-xl font-bold text-gray-900;
+}
+
+.post-summary {
+  @apply text-gray-700;
+}
+
+.read-more {
+  @apply text-primary hover:underline;
+}
