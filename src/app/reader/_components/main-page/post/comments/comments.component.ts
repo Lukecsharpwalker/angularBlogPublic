@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { ReaderApiService } from '../../../../_services/reader-api.service';
-import { AsyncPipe, JsonPipe } from '@angular/common';
+import { Comment } from '../../../../../shared/_models/comment.inteface';
 @Component({
   selector: 'comments',
   standalone: true,
-  imports: [JsonPipe, AsyncPipe],
+  imports: [],
   providers: [ReaderApiService],
   templateUrl: './comments.component.html',
   styleUrl: './comments.component.scss',

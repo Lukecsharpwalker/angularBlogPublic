@@ -6,6 +6,7 @@ import { Observable, from } from 'rxjs';
 import { CommentsComponent } from "./comments/comments.component";
 import { AddCommentComponent } from './add-comment/add-comment.component';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { Comment } from '../../../../shared/_models/comment.inteface';
 
 @Component({
     selector: 'app-post',

@@ -23,6 +23,11 @@
   @apply shadow-lg -translate-y-0.5;
 }
 
+/* Disabled state */
+.btn--primary:disabled, .btn--secondary:disabled{
+  @apply bg-gray-300 text-gray-500 cursor-not-allowed;
+}
+
 /* Import TailwindCSS */
 @import 'tailwindcss/utilities';
 

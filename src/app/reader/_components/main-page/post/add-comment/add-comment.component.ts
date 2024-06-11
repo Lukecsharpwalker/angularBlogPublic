@@ -27,6 +27,7 @@ export class AddCommentComponent {
   onSubmit(): void {
     if (this.commentForm.valid) {
       this.apiService.addComment(this.postId, this.commentForm.value);
+      this.commentForm.reset();
     }
   }
 }
