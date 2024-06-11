@@ -4,6 +4,7 @@ import { Firestore, collection } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { Post } from '../../shared/_models/post.interface';
 import { Collections } from '../../shared/_enums/collections';
+import { Comment } from '../../shared/_models/comment.inteface';
 
 @Injectable()
 export class ReaderApiService {
