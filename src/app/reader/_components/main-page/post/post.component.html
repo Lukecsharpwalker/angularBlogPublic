@@ -1,20 +1,34 @@
-@if (post$ | async; as post) {
-  <section class="flex justify-center">
-    <div class="w-full lg:w-6/12">
-      <img class="w-full h-64 object-cover mt-10" [src]="post.image" alt="{{ post.title }}" />
-      <h1 class="text-3xl font-bold text-center my-5">{{ post.title }}</h1>
-      <p class="text-center text-gray-500">{{ post.author }} - {{ post.date | date }}</p>
-      <!-- TODO: Add social share buttons -->
+<section class="flex justify-center">
+  <div class="w-full lg:w-6/12">
+    @if (post$ | async; as post) {
+    <button class="btn--secondary bg-opacity-25 px-4 mt-8 py-2 rounded-full shadow-md  mb-4 flex items-center" (click)="goBack()">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+        stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+      </svg>
+      Back
+    </button>
+    <img class="w-full h-64 object-cover mt-10" [src]="post.image" alt="{{ post.title }}" />
+    <h1 class="text-3xl font-bold text-center my-5">{{ post.title }}</h1>
+    <p class="text-center text-gray-500">{{ post.author }} - {{ post.date | date }}</p>
+    <!-- TODO: Add social share buttons -->
 
-      <div class="mt-4 leading-8" [innerHTML]="post.content"></div>
-      <hr class="border-gray-300 my-4">
-      <add-comment [postId]="id" />
-      <hr class="border-gray-300 my-4">
-      @defer {
-        @if (comments$()) {
-          <comments *ngIf="comments$()" [comments$]="comments$()" />
-        }
-      }
-    </div>
-  </section>
-}
+    <div class="mt-4 leading-8" [innerHTML]="post.content"></div>
+    <hr class="border-gray-300 my-4">
+    <add-comment [postId]="id" />
+    <hr class="border-gray-300 my-4">
+    @defer {
+    @if (comments$()) {
+    <comments *ngIf="comments$()" [comments$]="comments$()" />
+    }
+    }
+    } @else {
+      <p class="text-gray-800 text-center">Post not found.</p>
+    }
+  </div>
+</section>
+
+<ul >
+  <li>Now this is a story all about how, my life got flipped-turned upside down</li>
+  <!-- ... -->
+</ul>

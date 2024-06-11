@@ -7,16 +7,7 @@
       <div>Title is required.</div>
     }
   }
-
-  <label for="content">Content:</label>
-  <input id="content" formControlName="content" required>
-  @if (blogForm.get('content')?.invalid && (blogForm.get('content')?.dirty || blogForm.get('content')?.touched)) {
-    @if (blogForm.get('content')?.errors?.['required']) {
-      <div>Content is required.</div>
-    }
-  }
-
-
-  <button type="submit" [disabled]="blogForm.invalid">Submit</button>
+  <p-editor ngDefaultControl formControlName="content" [style]="{ height: '320px' }" />
+  <button class="btn btn--primary" type="submit" [disabled]="blogForm.invalid">Submit</button>
 </form>
 }
