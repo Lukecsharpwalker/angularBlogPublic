@@ -34,5 +34,4 @@ export class AddPostComponent {
       this.apiService.addPost(this.blogForm.value);
     }
   }
-
 }
