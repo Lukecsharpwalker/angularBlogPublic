@@ -12,6 +12,10 @@ export const routes: Routes = [
     title: 'Admin',
   },
   {
+    path: 'login',
+    loadComponent:() => import('./shared/auth/login/login.component').then(m => m.LoginCompontent),
+  },
+  {
     path:'**',
     redirectTo: 'posts'
   },
