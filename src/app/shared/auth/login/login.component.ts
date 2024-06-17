@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { Credentials } from '../../_models/credentials.interface';
 
 @Component({
   selector: 'blog-login',
@@ -12,16 +13,20 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoginCompontent {
-onGoogleLogin() {
-throw new Error('Method not implemented.');
-}
-  private authService = inject(AuthService);
+
   loginForm = new FormGroup({
-    email: new FormControl(''),
-    password: new FormControl(''),
+    email: new FormControl<string>('', {nonNullable: true}),
+    password: new FormControl<string>('', {nonNullable: true}),
   });
+  isSubmitted = false;
+
+  private authService = inject(AuthService);
+
   onSubmit(): void {
-    console.log(this.loginForm.value);
-    // this.authService.loginWithEmail(this.loginForm.value);
+    this.isSubmitted = true;
+    this.authService.loginWithEmail(this.loginForm.value as Credentials);
+  }
+  onGoogleLogin() {
+    throw new Error('Method not implemented.');
   }
 }

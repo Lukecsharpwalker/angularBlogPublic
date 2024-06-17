@@ -2,24 +2,24 @@ import { Injectable, EnvironmentInjector, inject, Component, ComponentRef, Embed
 import { DynamicDialogComponent } from './dynamic-dialog.component';
 import { ViewContainerRef } from '@angular/core';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class DynamicDialogService {
 
   private envInjector = inject(EnvironmentInjector);
-  private viewContainerRef = inject(ViewContainerRef);
+  private componentRef!: ComponentRef<DynamicDialogComponent>;
 
-  openDialog<C>(component: C): void {
-    const componentRef =
-      this.viewContainerRef.createComponent(DynamicDialogComponent, { environmentInjector: this.envInjector });
+  openDialog<C>(component: C, viewContainerRef: ViewContainerRef): void {
+    this.componentRef =
+      viewContainerRef.createComponent(DynamicDialogComponent, { environmentInjector: this.envInjector });
 
-    componentRef.instance.component = component;
+    this.componentRef.instance.component = component;
     const domElem =
-      (componentRef.hostView as EmbeddedViewRef<DynamicDialogComponent>).rootNodes[0] as HTMLElement;
-      
+      (this.componentRef.hostView as EmbeddedViewRef<DynamicDialogComponent>).rootNodes[0] as HTMLElement;
+
     document.body.appendChild(domElem);
-    componentRef.onDestroy(() => {
-      document.body.removeChild(domElem);
-      this.viewContainerRef.remove();
-    });
+  }
+
+  closeDialog() {
+    this.componentRef.destroy();
   }
 }
