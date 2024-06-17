@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, ViewContainerRef, inject } from '@angular/core';
 import { LoginCompontent } from '../auth/login/login.component';
 import { DynamicDialogService } from '../dynamic-dialog/dynamic-dialog.service';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'blog-navbar',
@@ -12,6 +13,7 @@ import { DynamicDialogService } from '../dynamic-dialog/dynamic-dialog.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NavbarComponent {
+  authSerivce = inject(AuthService);
   private dynamicDialogService = inject(DynamicDialogService);
   private viewContainerRef = inject(ViewContainerRef);
 
