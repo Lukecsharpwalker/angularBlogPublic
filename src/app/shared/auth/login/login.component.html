@@ -1,17 +1,21 @@
-<form [formGroup]="loginForm" (ngSubmit)="onSubmit()" ngSkipHydration>
-  <label for="title">Email:</label>
-  <input id="email" formControlName="email" required>
-  @if (loginForm.controls.email.touched && (loginForm.controls.email.dirty || loginForm.controls.email.touched)) {
-    @if (loginForm.controls.email.errors?.['required']) {
-      <div>email is required</div>
+<form class="w-100" [formGroup]="loginForm" (ngSubmit)="onSubmit()" ngSkipHydration>
+  <div class="col-8">
+    <label for="title">Email:</label>
+    <input class="border-2 border-black" id="email" formControlName="email" required>
+    @if (isSubmitted) {
+      @if (loginForm.controls.email.errors?.['required']) {
+        <div>email is required</div>
+      }
     }
-  }
-  <label for="title">Password:</label>
-  <input id="password" formControlName="password" required>
-  @if (loginForm.controls.password.touched && (loginForm.controls.password.dirty || loginForm.controls.password.touched)) {
-    @if (loginForm.controls.password.errors?.['required']) {
-      <div>email is required</div>
+  </div>
+  <div class="col-8 my-2">
+    <label for="title">Password:</label>
+    <input class="border-2 border-black" id="password" formControlName="password" required>
+    @if (isSubmitted) {
+      @if (loginForm.controls.password.errors?.['required']) {
+        <div>email is required</div>
+      }
     }
-  }
-  <button class="btn btn--primary" type="submit" [disabled]="loginForm.invalid">Submit</button>
+  </div>
+  <button class="btn btn--primary text-sm py-0" type="submit" [disabled]="loginForm.invalid">Submit</button>
 </form>
