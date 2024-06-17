@@ -2,19 +2,20 @@
   <div class="col-8">
     <label for="title">Email:</label>
     <input class="border-2 border-black" id="email" formControlName="email" required>
-    @if (isSubmitted) {
-      @if (loginForm.controls.email.errors?.['required']) {
-        <div>email is required</div>
-      }
+    @if (isSubmitted && loginForm.controls.email.errors?.['required']) {
+    <div>email is required</div>
     }
   </div>
   <div class="col-8 my-2">
     <label for="title">Password:</label>
-    <input class="border-2 border-black" id="password" formControlName="password" required>
-    @if (isSubmitted) {
-      @if (loginForm.controls.password.errors?.['required']) {
-        <div>email is required</div>
-      }
+    <input type="password" class="border-2 border-black" id="password" formControlName="password" required>
+    @if (isSubmitted && loginForm.controls.password.errors?.['required']) {
+    <div>email is required</div>
+    }
+  </div>
+  <div class="col-8">
+    @if (isSubmitted && loginError()) {
+    <div>Login or password invalid</div>
     }
   </div>
   <button class="btn btn--primary text-sm py-0" type="submit" [disabled]="loginForm.invalid">Submit</button>

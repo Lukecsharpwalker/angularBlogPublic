@@ -2,7 +2,9 @@ import { Injectable, WritableSignal, inject, signal } from '@angular/core';
 import { Auth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, User, createUserWithEmailAndPassword } from '@angular/fire/auth';
 import { Credentials } from '../_models/credentials.interface';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class AuthService {
 
   user$: WritableSignal<User | null> = signal(null);
@@ -11,8 +13,8 @@ export class AuthService {
   private provider = new GoogleAuthProvider();
   private auth = inject(Auth);
 
-  loginWithEmail(credentials: Credentials): void {
-    signInWithEmailAndPassword(this.auth, credentials.email, credentials.password).then((userCredentials) => {
+  loginWithEmail(credentials: Credentials): Promise<void> {
+    return signInWithEmailAndPassword(this.auth, credentials.email, credentials.password).then((userCredentials) => {
       this.user$.set(userCredentials.user);
       userCredentials.user.getIdTokenResult().then((idTokenResult) => {
         this.isAdmin$.set(!!idTokenResult.claims['admin']);
@@ -39,7 +41,7 @@ export class AuthService {
       });
     })
   }
-  
+
   logout(): void {
     this.auth.signOut().then(() => {
       this.user$.set(null);
