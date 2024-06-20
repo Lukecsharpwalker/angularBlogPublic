@@ -33,6 +33,8 @@ export class AuthService {
   }
 
   loginGoogle(): void {
+    this.logout();
+    console.log(this.user$())
     signInWithPopup(this.auth, this.provider)
     .then((userCredentials) => {
       this.user$.set(userCredentials.user);
