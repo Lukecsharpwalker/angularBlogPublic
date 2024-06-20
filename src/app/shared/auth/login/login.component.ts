@@ -38,6 +38,7 @@ export class LoginCompontent {
       });
   }
   onGoogleLogin() {
-    throw new Error('Method not implemented.');
+    this.authService.loginGoogle();
+    this.dynamicDialogService.closeDialog();
   }
 }
