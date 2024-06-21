@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component, ComponentFactoryResolver, ElementRef, Input, OnInit, ViewChild, ViewContainerRef, inject, viewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ComponentFactoryResolver, ElementRef, Input, OnInit, Type, ViewChild, ViewContainerRef, inject, viewChild } from '@angular/core';
 import { DynamicDialogService } from './dynamic-dialog.service';
+import { Post } from '../_models/post.interface';
 
 @Component({
   selector: 'app-dynamic-dialog',
@@ -10,8 +11,8 @@ import { DynamicDialogService } from './dynamic-dialog.service';
   styleUrl: './dynamic-dialog.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DynamicDialogComponent implements OnInit{
-  @Input() component: any;
+export class DynamicDialogComponent<C = unknown> implements OnInit{
+  @Input() component!: Type<C>;
 
   divEl = viewChild.required('dynamicComponentContainer', {read: ViewContainerRef});
 
@@ -20,11 +21,10 @@ export class DynamicDialogComponent implements OnInit{
 
   ngOnInit(): void {
     if (this.divEl()) {
-      console.log(this.divEl());
       this.divEl().createComponent(this.component);
-
     }
   }
+
   closeDialog() {
     this.dynamicDialogService.closeDialog();
   }

@@ -10,14 +10,14 @@ export class AuthService {
   user$: WritableSignal<User | null> = signal(null);
   isAdmin$: WritableSignal<boolean> = signal(false);
 
-  private provider = new GoogleAuthProvider();
   private auth = inject(Auth);
+  private provider = new GoogleAuthProvider();
 
   loginWithEmail(credentials: Credentials): Promise<void> {
     return signInWithEmailAndPassword(this.auth, credentials.email, credentials.password).then((userCredentials) => {
       this.user$.set(userCredentials.user);
       userCredentials.user.getIdTokenResult().then((idTokenResult) => {
-        this.isAdmin$.set(!!idTokenResult.claims['admin']);
+        this.isAdmin$.set(idTokenResult.claims['admin'] as boolean);
       });
     })
   }
@@ -27,20 +27,20 @@ export class AuthService {
     createUserWithEmailAndPassword(this.auth, credentials.email, credentials.password).then((userCredentials) => {
       this.user$.set(userCredentials.user);
       userCredentials.user.getIdTokenResult().then((idTokenResult) => {
-        this.isAdmin$.set(!!idTokenResult.claims['admin']);
+        this.isAdmin$.set(idTokenResult.claims['admin'] as boolean);
       });
     });
   }
 
   loginGoogle(): void {
-    this.logout();
-    console.log(this.user$())
     signInWithPopup(this.auth, this.provider)
     .then((userCredentials) => {
       this.user$.set(userCredentials.user);
       userCredentials.user.getIdTokenResult().then((idTokenResult) => {
-        this.isAdmin$.set(!!idTokenResult.claims['admin']);
+        this.isAdmin$.set(idTokenResult.claims['admin'] as boolean);
       });
+    }).catch((error) => {
+      console.error(error);
     })
   }
 
