@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, Injector, Input, OnInit, Signal, in
 import { ReaderApiService } from '../../../_services/reader-api.service';
 import { AsyncPipe, DatePipe, JsonPipe, NgIf } from '@angular/common';
 import { Post } from '../../../../shared/_models/post.interface';
-import { Observable, from, map, tap } from 'rxjs';
+import { Observable, from, map } from 'rxjs';
 import { CommentsComponent } from "./comments/comments.component";
 import { AddCommentComponent } from './add-comment/add-comment.component';
 import { toSignal } from '@angular/core/rxjs-interop';
