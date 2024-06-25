@@ -4,7 +4,7 @@ import { Post } from '../../shared/_models/post.interface';
 import { Collections } from '../../shared/_enums/collections';
 
 @Injectable()
-export class ApiService {
+export class AdminApiService {
   private firestore = inject(Firestore);
 
   addPost(post: Post) {

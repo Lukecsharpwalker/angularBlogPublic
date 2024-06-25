@@ -1,7 +1,7 @@
 import { Injectable, WritableSignal, inject, signal } from '@angular/core';
 import { Auth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, User, createUserWithEmailAndPassword, onAuthStateChanged, IdTokenResult, } from '@angular/fire/auth';
-import { Credentials } from '../_models/credentials.interface';
 import { Observable } from 'rxjs';
+import { Credentials } from '../shared/_models/credentials.interface';
 
 @Injectable({
   providedIn: 'root'

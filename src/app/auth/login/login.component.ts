@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, Component, WritableSignal, inject, signal } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { Credentials } from '../../_models/credentials.interface';
-import { DynamicDialogService } from '../../dynamic-dialog/dynamic-dialog.service';
+import { DynamicDialogService } from '../../shared/dynamic-dialog/dynamic-dialog.service';
+import { Credentials } from '../../shared/_models/credentials.interface';
+
 
 @Component({
   selector: 'blog-login',
