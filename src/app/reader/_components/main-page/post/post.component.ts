@@ -19,7 +19,7 @@ import { DomSanitizer } from '@angular/platform-browser';
     changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [AsyncPipe, JsonPipe, CommentsComponent, AddCommentComponent, NgIf, DatePipe],
 })
-export class PostComponent implements OnInit{
+export class PostComponent implements OnInit {
   @Input() id!: string;
 
   apiService = inject(ReaderApiService);

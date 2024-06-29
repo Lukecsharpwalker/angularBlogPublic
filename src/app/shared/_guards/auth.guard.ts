@@ -1,8 +1,8 @@
 import { inject } from '@angular/core';
 import { CanMatchFn, Router } from '@angular/router';
-import { AuthService } from '../auth/auth.service';
 import { Observable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
+import { AuthService } from '../../auth/auth.service';
 
 export const authGuard: CanMatchFn = (): Observable<boolean> => {
   const authService = inject(AuthService);

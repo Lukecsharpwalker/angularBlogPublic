@@ -1,6 +1,5 @@
-import { ChangeDetectionStrategy, Component, ComponentFactoryResolver, ElementRef, Input, OnInit, Type, ViewChild, ViewContainerRef, inject, viewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit, Type, ViewContainerRef, inject, viewChild } from '@angular/core';
 import { DynamicDialogService } from './dynamic-dialog.service';
-import { Post } from '../_models/post.interface';
 
 @Component({
   selector: 'app-dynamic-dialog',
