@@ -84,3 +84,11 @@
 .read-more {
   @apply text-primary hover:underline;
 }
+.editor-container {
+  @apply p-4 border border-gray-300 rounded-lg;
+}
+
+/* Ensure Quill styles are applied correctly */
+.ql-code-block-container {
+  @apply bg-gray-100 border border-gray-300 rounded-lg p-4;
+}

@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, ViewContainerRef, inject } from '@angular/core';
-import { LoginCompontent } from '../auth/login/login.component';
 import { DynamicDialogService } from '../dynamic-dialog/dynamic-dialog.service';
-import { AuthService } from '../auth/auth.service';
+import { AuthService } from '../../auth/auth.service';
+import { LoginCompontent } from '../../auth/login/login.component';
 
 @Component({
   selector: 'blog-navbar',
