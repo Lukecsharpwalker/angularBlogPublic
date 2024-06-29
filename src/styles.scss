@@ -90,5 +90,37 @@
 
 /* Ensure Quill styles are applied correctly */
 .ql-code-block-container {
-  @apply bg-gray-100 border border-gray-300 rounded-lg p-4;
+  @apply bg-gray-100 border border-gray-300 rounded-lg p-4 break-words;
+}
+/* Strike-through text for Quill */
+.ql-strike {
+  @apply line-through;
+}
+
+/* Blockquote style for Quill */
+.ql-blockquote {
+  @apply border-l-4 border-gray-300 pl-4 italic;
+}
+
+/* Header styles for Quill */
+.ql-header.ql-size-h1 {
+  @apply text-4xl;
+}
+
+.ql-header.ql-size-h2 {
+  @apply text-3xl;
+}
+
+.ql-header.ql-size-h3 {
+  @apply text-2xl;
+}
+/* custom-quill-styles.css */
+
+.ql-align-center {
+  @apply flex justify-center;
+}
+
+/* Ensure that the flex container applies to block-level elements */
+.ql-align-center > * {
+  @apply flex items-center;
 }
