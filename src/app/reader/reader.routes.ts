@@ -13,7 +13,7 @@ export const readerRoutes: Routes = [
         component: PostsListComponent
       },
       {
-      path: 'details/:id',
+      path: 'details/:id/:index',
       component: PostComponent,
       pathMatch: 'full',
     }]
