@@ -1,7 +1,7 @@
 import { AsyncPipe, NgClass } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FirestoreModule } from '@angular/fire/firestore';
-import { RouterLink, RouterModule } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Post } from '../../../../shared/_models/post.interface';
 import { ReaderApiService } from '../../../_services/reader-api.service';

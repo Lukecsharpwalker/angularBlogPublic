@@ -8,7 +8,7 @@
       </svg>
       Back
     </button>
-    <img class="w-full h-64 object-cover mt-10" [src]="post.image" alt="{{ post.title }}" />
+    <img class="w-full h-64 object-cover mt-10" src="{{index}}-min.png" alt="{{ post.title }}" />
     <h1 class="text-3xl font-bold text-center my-5">{{ post.title }}</h1>
     <p class="text-center text-gray-500">{{ post.author }} - {{ post.date | date }}</p>
     <!-- TODO: Add social share buttons -->

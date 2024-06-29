@@ -12,8 +12,8 @@
 <div class="flex justify-center mt-5">
   <div class="w-full lg:w-8/12">
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      @for (item of posts$ | async; track item.id; let f = $first) {
-      <blog-post-card [post]="item" [first]="f" [ngClass]="f ? 'col-span-1 md:col-span-2 lg:col-span-3' : ''" />
+      @for (item of posts$ | async; track item.id; let f = $first; let i = $index) {
+      <blog-post-card [index]="i" [post]="item" [first]="f" [ngClass]="f ? 'col-span-1 md:col-span-2 lg:col-span-3' : ''" />
       }
     </div>
   </div>

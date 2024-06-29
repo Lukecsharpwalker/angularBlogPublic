@@ -21,6 +21,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class PostComponent implements OnInit {
   @Input() id!: string;
+  @Input() index!: number;
 
   apiService = inject(ReaderApiService);
   injector = inject(Injector);
@@ -32,11 +33,11 @@ export class PostComponent implements OnInit {
   comments$!: Signal<Comment[] | undefined>;
 
   ngOnInit() {
+    this.index = Number(this.index +1);
      this.post$ = from(this.apiService.getPost(this.id))
       .pipe(
         map((post: Post | null) => {
           if (post) {
-            console.log(post.content);
             post.content = this.sanitizer.bypassSecurityTrustHtml(post.content as string);
           }
           return post;

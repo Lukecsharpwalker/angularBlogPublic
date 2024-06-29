@@ -14,4 +14,5 @@ import { RouterModule } from '@angular/router';
 export class PostCardComponent {
   @Input() post!: Post;
   @Input() first : boolean = false;
+  @Input() index : number = 1;
 }
