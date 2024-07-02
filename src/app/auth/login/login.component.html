@@ -1,0 +1,56 @@
+<form class="w-100 mx-auto bg-white p-8 rounded-lg shadow-md" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+  <div class="mb-4">
+    <label for="email" class="block text-gray-700 text-sm font-bold mb-2">Email:</label>
+    <input
+      id="email"
+      formControlName="email"
+      required
+      type="email"
+      class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-900 focus:border-transparent"
+      placeholder="Enter your email"
+    />
+    @if (isSubmitted && loginForm.controls.email.errors?.['required']) {
+    <div class="text-red-500 text-xs mt-1">
+      Email is required.
+    </div>
+  }
+  </div>
+  <div class="mb-4">
+    <label for="password" class="block text-gray-700 text-sm font-bold mb-2">Password:</label>
+    <input
+      id="password"
+      formControlName="password"
+      required
+      type="password"
+      class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-900 focus:border-transparent"
+      placeholder="Enter your password"
+    />
+    @if (isSubmitted && loginForm.controls.password.errors?.['required']) {
+    <div class="text-red-500 text-xs mt-1">
+      Password is required.
+    </div>
+  }
+  </div>
+  @if (isSubmitted && loginError()) {
+  <div class="text-red-500 text-sm mb-4">
+    Login or password invalid.
+  </div>
+  }
+  <button
+    type="submit"
+    class="w-full bg-primary text-white py-2 rounded-lg hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 transition duration-150 ease-in-out"
+  >
+    Submit
+  </button>
+</form>
+<div class="flex items-center justify-center my-6">
+  <div class="border-t border-gray-300 flex-grow"></div>
+  <span class="mx-4 text-gray-500">Or login with socials</span>
+  <div class="border-t border-gray-300 flex-grow"></div>
+</div>
+<button
+  (click)="onGoogleLogin()"
+  class="w-full bg-primary text-white py-2 rounded-lg hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50 transition duration-150 ease-in-out"
+>
+  Login with Google
+</button>
