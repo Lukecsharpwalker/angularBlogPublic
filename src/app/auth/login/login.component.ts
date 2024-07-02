@@ -32,7 +32,6 @@ export class LoginCompontent {
       .then(() => {
         this.loginError.set(false);
         this.dynamicDialogService.closeDialog();
-        console.log(this.authService.user$());
       })
       .catch(() => {
         this.loginError.set(true);

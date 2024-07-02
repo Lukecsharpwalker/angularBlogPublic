@@ -8,6 +8,7 @@ import { Credentials } from '../shared/_models/credentials.interface';
 })
 export class AuthService {
 
+
   user$: WritableSignal<User | null> = signal(null);
   isAdmin$: WritableSignal<boolean> = signal(false);
 
@@ -53,18 +54,20 @@ export class AuthService {
     });
   }
 
-  getAdminStatus(): Observable<boolean> {
+  getAdminStatusAndUser(): Observable<boolean> {
     return new Observable((observer) => {
       onAuthStateChanged(this.auth, (user) => {
         if (user) {
+          this.user$.set(user);
           user.getIdTokenResult().then((idTokenResult: IdTokenResult) => {
-            observer.next(idTokenResult.claims['admin'] as boolean);
+            this.isAdmin$.set(idTokenResult.claims['admin'] as boolean);
             observer.complete();
           }).catch((error) => {
             observer.error(error);
           });
         } else {
-          observer.next(false);
+          this.isAdmin$.set(false);
+          this.user$.set(null);
           observer.complete();
         }
       });
