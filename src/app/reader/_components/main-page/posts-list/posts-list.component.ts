@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { Post } from '../../../../shared/_models/post.interface';
 import { ReaderApiService } from '../../../_services/reader-api.service';
 import { PostComponent } from '../post/post.component';
-import { CardComponent } from '../../presentational-components/post-card/card.component';
+import { CardComponent } from '../../../../shared/card/card.component';
 
 @Component({
   selector: 'app-posts-list',

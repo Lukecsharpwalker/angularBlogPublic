@@ -1,0 +1,61 @@
+<div class="cookie-popup p-4">
+  <ul class="flex flex-wrap text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400">
+    <li class="me-2">
+      <button (click)="setActiveTab('consent')" [ngClass]="{ 'text-blue-600 bg-gray-100 rounded-t-lg active dark:bg-gray-800 dark:text-blue-500': activeTab === 'consent', 'hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300': activeTab !== 'consent' }" class="inline-block p-4">
+        Consent
+      </button>
+    </li>
+    <li class="me-2">
+      <button (click)="setActiveTab('details')" [ngClass]="{ 'text-blue-600 bg-gray-100 rounded-t-lg active dark:bg-gray-800 dark:text-blue-500': activeTab === 'details', 'hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300': activeTab !== 'details' }" class="inline-block p-4">
+        Details
+      </button>
+    </li>
+    <li class="me-2">
+      <button (click)="setActiveTab('about')" [ngClass]="{ 'text-blue-600 bg-gray-100 rounded-t-lg active dark:bg-gray-800 dark:text-blue-500': activeTab === 'about', 'hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300': activeTab !== 'about' }" class="inline-block p-4">
+        About
+      </button>
+    </li>
+  </ul>
+
+  @if (activeTab === 'consent') {
+    <div class="tab-content mt-4">
+      <h2 class="text-lg font-bold mb-2">This website uses cookies</h2>
+      <p class="text-gray-700">We use cookies to personalise content and ads, to provide social media features and to analyse our traffic. We also share information about your use of our site with our social media, advertising and analytics partners who may combine it with other information that you’ve provided to them or that they’ve collected from your use of their services.</p>
+    </div>
+  }
+
+  @if (activeTab === 'details') {
+    <div class="tab-content mt-4">
+      <h2 class="text-lg font-bold mb-2">Details</h2>
+      @for (group of cookieGroups; track $index) {
+        <blog-card>
+          <card-header>
+            <h3 class="text-md font-semibold">{{ group.name }}</h3>
+          </card-header>
+          <card-description>
+            <ul class="list-disc ml-5 text-gray-700">
+              @for (cookie of group.cookies; track $index) {
+                <li>{{ cookie }}</li>
+              }
+            </ul>
+          </card-description>
+        </blog-card>
+      }
+    </div>
+  }
+
+  @if (activeTab === 'about') {
+    <div class="tab-content mt-4">
+      <h2 class="text-lg font-bold mb-2">About Cookies</h2>
+      <p class="text-gray-700">Cookies are small text files that can be used by websites to make a user's experience more efficient.</p>
+      <p class="text-gray-700">The law states that we can store cookies on your device if they are strictly necessary for the operation of this site. For all other types of cookies we need your permission. This means that cookies which are categorized as necessary, are processed based on GDPR Art. 6 (1) (f). All other cookies, meaning those from the categories preferences and marketing, are processed based on GDPR Art. 6 (1) (a) GDPR.</p>
+      <p class="text-gray-700">This site uses different types of cookies. Some cookies are placed by third party services that appear on our pages.</p>
+      <p class="text-gray-700">You can at any time change or withdraw your consent from the Cookie Declaration on our website.</p>
+      <p class="text-gray-700">Learn more about who we are, how you can contact us and how we process personal data in our Privacy Policy.</p>
+      <p class="text-gray-700">Please state your consent ID and date when you contact us regarding your consent.</p>
+    </div>
+  }
+
+  <div class="flex justify-end mt-4 space-x-2">
+  </div>
+</div>

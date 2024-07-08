@@ -1,5 +1,5 @@
 import { Injectable, WritableSignal, inject, signal } from '@angular/core';
-import { Auth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, User, createUserWithEmailAndPassword, onAuthStateChanged, IdTokenResult, } from '@angular/fire/auth';
+import { Auth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, onAuthStateChanged, IdTokenResult, } from '@angular/fire/auth';
 import { Observable } from 'rxjs';
 import { Credentials } from '../shared/_models/credentials.interface';
 import { Roles } from '../shared/_enums/roles';
@@ -58,7 +58,6 @@ export class AuthService {
       onAuthStateChanged(this.auth, (user) => {
         if (user) {
           this.user$.set(user as BlogUser);
-          this.user$()!.roles = [];
           user.getIdTokenResult().then((idTokenResult: IdTokenResult) => {
             this.getRoles(idTokenResult);
             observer.complete();
@@ -74,6 +73,7 @@ export class AuthService {
   }
 
   private getRoles(idTokenResult: IdTokenResult) {
+    this.user$()!.roles = [];
     if (idTokenResult.claims['admin']) this.user$()!.roles.push(Roles.ADMIN);
     if (idTokenResult.claims['moderator']) this.user$()!.roles.push(Roles.MODERATOR);
     if (idTokenResult.claims['writer']) this.user$()!.roles.push(Roles.WRITER);

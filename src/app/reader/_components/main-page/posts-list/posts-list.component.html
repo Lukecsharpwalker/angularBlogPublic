@@ -13,7 +13,7 @@
   <div class="w-full lg:w-8/12">
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
       @for (post of posts$ | async; track post.id; let f = $first; let i = $index) {
-        <blog-post-card [first]="f" [ngClass]="f ? 'col-span-1 md:col-span-2 lg:col-span-3' : ''" >
+        <blog-card [first]="f" [ngClass]="f ? 'col-span-1 md:col-span-2 lg:col-span-3' : ''" >
           <card-image>
             <img src="{{i + 1}}.png" alt="Post Image" [ngClass]="f ? 'w-full lg:w-2/3' : 'post-image'" />
           </card-image>
@@ -23,7 +23,7 @@
           <card-description>
             <p class="post-summary">{{ post.description }}</p>
           </card-description>
-        </blog-post-card>
+        </blog-card>
       }
     </div>
   </div>
