@@ -13,6 +13,7 @@ import { environment } from '../environments/environment.development';
 import { AuthService } from './auth/auth.service';
 import { authInnitializer } from './utlis/initialize-auth';
 
+
 export const appConfig: ApplicationConfig = {
   providers: [
     provideHttpClient(withFetch()),

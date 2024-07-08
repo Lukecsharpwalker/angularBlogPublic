@@ -14,27 +14,35 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  ol, ul {
-    list-style: initial;
-    padding-left: 40px;
-    margin: 1em 0;
-  }
-}
+// @layer base {
+//   ol, ul {
+//     list-style: initial;
+//     padding-left: 40px;
+//     margin: 1em 0;
+//   }
+// }
 
 /* Base button */
 .btn {
-  @apply text-base font-medium rounded-lg p-3;
+  @apply text-base font-medium rounded-md p-3;
+}
+.btn--rounded {
+  @apply rounded-full;
 }
 
-/* button primary */
+/* Button group */
+.btn--group {
+  @apply flex space-x-4;
+}
+
+/* Button primary */
 .btn--primary {
   @apply bg-primary text-white;
 }
 
-/* button secondary */
+/* Button secondary */
 .btn--secondary {
-  @apply bg-quaternary text-black;
+  @apply bg-white text-secondary border border-secondary;
 }
 
 /* Hover effects */
@@ -43,10 +51,9 @@
 }
 
 /* Disabled state */
-.btn--primary:disabled, .btn--secondary:disabled{
+.btn--primary:disabled, .btn--secondary:disabled {
   @apply bg-gray-300 text-gray-500 cursor-not-allowed;
 }
-
 /* Import TailwindCSS */
 @import 'tailwindcss/utilities';
 
