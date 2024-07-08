@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ViewContainerRef, afterNextRender, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { CookieConsentService } from './shared/cookie-consent/cookie-consent.service';
 
 @Component({
   selector: 'app-root',
@@ -9,4 +10,10 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
+  cookieConsentService = inject(CookieConsentService);
+  viewContainerRef = inject(ViewContainerRef);
+
+  constructor() {
+    afterNextRender(() => this.cookieConsentService.showCookieConsent(this.viewContainerRef));
+  }
 }

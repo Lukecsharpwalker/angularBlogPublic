@@ -12,8 +12,18 @@
 <div class="flex justify-center mt-5">
   <div class="w-full lg:w-8/12">
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      @for (item of posts$ | async; track item.id; let f = $first; let i = $index) {
-      <blog-post-card [index]="i" [post]="item" [first]="f" [ngClass]="f ? 'col-span-1 md:col-span-2 lg:col-span-3' : ''" />
+      @for (post of posts$ | async; track post.id; let f = $first; let i = $index) {
+        <blog-card [first]="f" [ngClass]="f ? 'col-span-1 md:col-span-2 lg:col-span-3' : ''" >
+          <card-image>
+            <img src="{{i + 1}}.png" alt="Post Image" [ngClass]="f ? 'w-full lg:w-2/3' : 'post-image'" />
+          </card-image>
+          <card-header>
+              <h2 [routerLink]="['details', post.id, i]" class="post-title underline cursor-pointer">{{ post.title }}</h2>
+          </card-header>
+          <card-description>
+            <p class="post-summary">{{ post.description }}</p>
+          </card-description>
+        </blog-card>
       }
     </div>
   </div>

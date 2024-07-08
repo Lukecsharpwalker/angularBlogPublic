@@ -11,6 +11,10 @@ export class AdminApiService {
     const newTaskRef = doc(collection(this.firestore, Collections.POST));
      setDoc(newTaskRef, post).finally(() => {
       console.log('Document written with ID: ', newTaskRef.id);
+      const newTaskRefIds = doc(collection(this.firestore, `${Collections.POSTSIDS}`));
+      setDoc(newTaskRefIds, {id: newTaskRef.id}).catch((e) => {
+        console.log('id error ID: ', e);
+      });
     });
   }
 }

@@ -1,5 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit, Type, ViewContainerRef, inject, viewChild } from '@angular/core';
 import { DynamicDialogService } from './dynamic-dialog.service';
+import { ModalConfig } from '../_models/modal-config.intreface';
+import { ModalStatusEnum } from '../_models/modal-status.interface';
 
 @Component({
   selector: 'app-dynamic-dialog',
@@ -12,11 +14,13 @@ import { DynamicDialogService } from './dynamic-dialog.service';
 })
 export class DynamicDialogComponent<C = unknown> implements OnInit{
   @Input() component!: Type<C>;
+  @Input() modalConfig?: ModalConfig;
 
   divEl = viewChild.required('dynamicComponentContainer', {read: ViewContainerRef});
 
   dynamicDialogService = inject(DynamicDialogService);
   viewContainerRef = inject(ViewContainerRef);
+  ModalStatusEnum = ModalStatusEnum;
 
   ngOnInit(): void {
     if (this.divEl()) {
@@ -24,8 +28,8 @@ export class DynamicDialogComponent<C = unknown> implements OnInit{
     }
   }
 
-  closeDialog() {
-    this.dynamicDialogService.closeDialog();
+  closeDialog(status: ModalStatusEnum) {
+    this.dynamicDialogService.closeDialog(status);
   }
 
 }

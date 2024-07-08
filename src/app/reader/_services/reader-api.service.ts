@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { collectionData, doc, setDoc, getDoc } from '@angular/fire/firestore';
+import { collectionData, doc, setDoc, getDoc, deleteDoc, updateDoc } from '@angular/fire/firestore';
 import { Firestore, collection } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { Post } from '../../shared/_models/post.interface';
@@ -23,15 +23,21 @@ export class ReaderApiService {
     });
   }
 
-  getComments(postId: string) {
+  getComments(postId: string): Observable<Comment[]> {
     return collectionData(
       collection(this.firestore, `${Collections.POST}/${postId}/${Collections.COMMENT}`), {idField: 'id'}) as Observable<Comment[]>;
   }
 
-  addComment(postId: string, comment: Comment) {
+  addComment(postId: string, comment: Comment): void {
     const newTaskRef = doc(collection(this.firestore, `${Collections.POST}/${postId}/${Collections.COMMENT}`));
      setDoc(newTaskRef, comment).finally(() => {
       console.log('comment added ', newTaskRef.id);
     });
   }
+
+  deleteComment(commentId: string, postId: string): void{
+    const commentRef = doc(this.firestore, `${Collections.POST}/${postId}/${Collections.COMMENT}/${commentId}`);
+    deleteDoc(commentRef);
+  }
+
 }

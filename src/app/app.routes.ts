@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { readerRoutes } from './reader/reader.routes';
-import { authGuard } from './shared/_guards/auth.guard';
+import { authGuard } from './auth/_guards/auth.guard';
 
 export const routes: Routes = [
   {
