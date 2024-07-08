@@ -1,0 +1,13 @@
+@defer {
+<form [formGroup]="blogForm" (ngSubmit)="onSubmit()">
+  <label for="title">Title:</label>
+  <input id="title" formControlName="title" required>
+  @if (blogForm.get('title')?.invalid && (blogForm.get('title')?.dirty || blogForm.get('title')?.touched)) {
+    @if (blogForm.get('title')?.errors?.['required']) {
+      <div>Title is required.</div>
+    }
+  }
+  <p-editor ngDefaultControl formControlName="content" [style]="{ height: '700px' }" />
+  <button class="btn btn--primary" type="submit" [disabled]="blogForm.invalid">Submit</button>
+</form>
+}
