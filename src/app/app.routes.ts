@@ -4,7 +4,7 @@ import { authGuard } from './auth/_guards/auth.guard';
 
 export const routes: Routes = [
   {
-    path: 'posts',
+    path: '',
     children: readerRoutes,
   },
   {
