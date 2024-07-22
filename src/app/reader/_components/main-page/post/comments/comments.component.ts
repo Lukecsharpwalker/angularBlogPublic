@@ -12,7 +12,7 @@ import { HasRoleDirective } from '../../../../../shared/_directives/has-role.dir
   styleUrl: './comments.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CommentsComponent  {
+export class CommentsComponent {
   @Input() postId!: string;
   Roles = Roles;
   comments$ = input<Comment[] | undefined>();

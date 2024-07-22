@@ -20,6 +20,9 @@
             "outputPath": "dist/angular-blog-app",
             "index": "src/index.html",
             "browser": "src/main.ts",
+            "allowedCommonJsDependencies": [
+              "highlight.js"
+            ],
             "polyfills": [
               "zone.js"
             ],

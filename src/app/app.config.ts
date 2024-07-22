@@ -12,7 +12,10 @@ import { getStorage, provideStorage } from '@angular/fire/storage';
 import { environment } from '../environments/environment.development';
 import { AuthService } from './auth/auth.service';
 import { authInnitializer } from './utlis/initialize-auth';
-
+import { provideQuillConfig } from 'ngx-quill/config';
+import { provideHighlightOptions } from 'ngx-highlightjs';
+import { quillToolbarConfig } from './utlis/quill-configuration';
+import hljs from 'highlight.js';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -31,5 +34,20 @@ export const appConfig: ApplicationConfig = {
       deps: [AuthService],
       multi: true,
     },
+    provideHighlightOptions({
+      coreLibraryLoader: () => import('highlight.js/lib/core'),
+      languages: {
+        xml: () => import('highlight.js/lib/languages/xml'),
+        typescript: () => import('highlight.js/lib/languages/typescript'),
+        javascript: () => import('highlight.js/lib/languages/javascript'),
+        css: () => import('highlight.js/lib/languages/css'),
+      },
+    }),
+    provideQuillConfig({
+      modules: {
+        syntax: { hljs },
+        toolbar: quillToolbarConfig
+      }
+    }),
   ]
 };

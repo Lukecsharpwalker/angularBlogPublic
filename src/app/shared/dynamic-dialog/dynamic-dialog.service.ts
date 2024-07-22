@@ -1,4 +1,4 @@
-import { Injectable, EnvironmentInjector, inject, ComponentRef, Type, WritableSignal, signal } from '@angular/core';
+import { Injectable, EnvironmentInjector, inject, ComponentRef, Type } from '@angular/core';
 import { DynamicDialogComponent } from './dynamic-dialog.component';
 import { ViewContainerRef } from '@angular/core';
 import { Subject } from 'rxjs';

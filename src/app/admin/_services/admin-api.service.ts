@@ -7,7 +7,7 @@ import { Collections } from '../../shared/_enums/collections';
 export class AdminApiService {
   private firestore = inject(Firestore);
 
-  addPost(post: Post) {
+  addPost(post: Post): void {
     const newTaskRef = doc(collection(this.firestore, Collections.POST));
      setDoc(newTaskRef, post).finally(() => {
       console.log('Document written with ID: ', newTaskRef.id);
