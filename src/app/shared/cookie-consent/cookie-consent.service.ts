@@ -13,13 +13,13 @@ export class CookieConsentService {
   showCookieConsent(viewContainerRef: ViewContainerRef): void {
     if (!localStorage.getItem(LocalStorageEnum.COOKIES_CONSENT)) {
       this.dialogService.openDialog(
-        CookieConsentComponent,
         viewContainerRef,
         {
           primaryButton: 'Allow All',
           secondaryButton: 'Deny',
           title: 'Cookie Consent'
-        }
+        },
+        CookieConsentComponent,
       ).subscribe((status) => {
         if (status === ModalStatusEnum.ACCEPTED) {
           this.acceptCookies();

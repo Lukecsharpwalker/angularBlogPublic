@@ -1,7 +1,8 @@
 import { Injectable, inject } from '@angular/core';
-import { Firestore, collection, doc, setDoc } from '@angular/fire/firestore';
+import { Firestore, collection, doc, docData, getDoc, setDoc, updateDoc } from '@angular/fire/firestore';
 import { Post } from '../../shared/_models/post.interface';
 import { Collections } from '../../shared/_enums/collections';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class AdminApiService {
@@ -16,5 +17,15 @@ export class AdminApiService {
         console.log('id error ID: ', e);
       });
     });
+  }
+
+  getPostById(id: string): Observable<Post | null> {
+    const postDoc = doc(this.firestore,  `${Collections.POST}/${id}`);
+    return docData(postDoc) as Observable<Post | null>;
+  }
+
+  updatePost(id: string, post: Post): Promise<void> {
+    const postDoc = doc(this.firestore, `${Collections.POST}/${id}`);
+    return updateDoc(postDoc, { ...post });
   }
 }

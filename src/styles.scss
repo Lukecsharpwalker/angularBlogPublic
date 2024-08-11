@@ -27,10 +27,29 @@ pre code {
 @tailwind components;
 @tailwind utilities;
 
+h1 {
+  @apply text-3xl font-bold mt-2 mb-1;
+}
+
+h2 {
+  @apply text-2xl font-bold mt-2 mb-1;
+}
+
+h3 {
+  @apply text-xl font-bold mt-2 mb-1;
+}
+
+h4 {
+  @apply text-lg font-bold mt-2 mb-1;
+}
+
+.tittle {
+  @apply text-4xl font-bold my-2;
+}
 
 /* Base button */
 .btn {
-  @apply text-base font-medium rounded-md p-3;
+  @apply text-base font-medium rounded-md p-3 min-w-16;
 }
 .btn--rounded {
   @apply rounded-full;

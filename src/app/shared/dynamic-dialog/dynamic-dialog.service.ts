@@ -13,10 +13,13 @@ export class DynamicDialogService {
   private closeRef$ = new Subject<ModalStatusEnum>();
 
 
-  openDialog<C extends Type<unknown>>(component: C, viewContainerRef: ViewContainerRef, modalConfig?: ModalConfig): Subject<ModalStatusEnum> {
+  openDialog<C extends Type<unknown>>(viewContainerRef: ViewContainerRef, modalConfig?: ModalConfig, component?: C)
+    : Subject<ModalStatusEnum> {
     this.componentRef =
       viewContainerRef.createComponent(DynamicDialogComponent, { environmentInjector: this.envInjector });
-    this.componentRef.instance.component = component;
+    if (component) {
+      this.componentRef.instance.component = component;
+    }
     this.componentRef.instance.modalConfig = modalConfig;
     return this.closeRef$;
   };

@@ -20,9 +20,9 @@ export class NavbarComponent {
 
   signIn() {
     this.dynamicDialogService.openDialog(
-      LoginCompontent,
       this.viewContainerRef,
-      { title: 'Sign In'}
+      { title: 'Sign In'},
+      LoginCompontent,
     );
   };
 }

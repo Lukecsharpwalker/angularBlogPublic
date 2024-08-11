@@ -8,5 +8,6 @@ export enum QueryOperators {
   ARRAY_CONTAINS = 'array-contains',
   ARRAY_CONTAINS_ANY = 'array-contains-any',
   IN = 'in',
-  NOT_IN = 'not-in'
+  NOT_IN = 'not-in',
+  DESC = 'desc',
 }

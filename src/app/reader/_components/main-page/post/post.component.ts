@@ -11,13 +11,13 @@ import { Router } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
-    selector: 'app-post',
-    standalone: true,
-    providers: [ReaderApiService],
-    templateUrl: './post.component.html',
-    styleUrl: './post.component.scss',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [AsyncPipe, JsonPipe, CommentsComponent, AddCommentComponent, NgIf, DatePipe],
+  selector: 'app-post',
+  standalone: true,
+  providers: [ReaderApiService],
+  templateUrl: './post.component.html',
+  styleUrl: './post.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [AsyncPipe, JsonPipe, CommentsComponent, AddCommentComponent, NgIf, DatePipe],
 })
 export class PostComponent implements OnInit {
   @Input() id!: string;
@@ -33,20 +33,22 @@ export class PostComponent implements OnInit {
   comments$!: Signal<Comment[] | undefined>;
 
   ngOnInit() {
-    this.index = Number(this.index +1);
-     this.post$ = from(this.apiService.getPost(this.id))
+    this.index = Number(this.index + 1);
+    this.post$ = from(this.apiService.getPost(this.id))
       .pipe(
         map((post: Post | null) => {
           if (post) {
+            post.dateJS = post.date.toDate();
             post.content = this.sanitizer.bypassSecurityTrustHtml(post.content as string);
           }
           return post;
         })
       );
-     this.comments$! = runInInjectionContext(this.injector, () => toSignal(this.apiService.getComments(this.id)));
+    this.comments$! = runInInjectionContext(this.injector, () => toSignal(this.apiService.getComments(this.id)));
   }
 
   goBack(): void {
     this.router.navigate(['/posts']);
   }
+
 }
