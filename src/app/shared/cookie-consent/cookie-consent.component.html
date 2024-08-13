@@ -1,17 +1,17 @@
 <div class="cookie-popup p-4">
-  <ul class="flex flex-wrap text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400">
+  <ul class="flex flex-wrap text-sm font-medium text-center text-gray-500 border-b border-gray-200">
     <li class="me-2">
-      <button (click)="setActiveTab('consent')" [ngClass]="{ 'text-blue-600 bg-gray-100 rounded-t-lg active dark:bg-gray-800 dark:text-blue-500': activeTab === 'consent', 'hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300': activeTab !== 'consent' }" class="inline-block p-4">
+      <button (click)="setActiveTab('consent')" [ngClass]="{ 'text-blue-600 bg-gray-100 rounded-t-lg active': activeTab === 'consent', 'hover:text-gray-600 hover:bg-gray-50': activeTab !== 'consent' }" class="inline-block p-4">
         Consent
       </button>
     </li>
     <li class="me-2">
-      <button (click)="setActiveTab('details')" [ngClass]="{ 'text-blue-600 bg-gray-100 rounded-t-lg active dark:bg-gray-800 dark:text-blue-500': activeTab === 'details', 'hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300': activeTab !== 'details' }" class="inline-block p-4">
+      <button (click)="setActiveTab('details')" [ngClass]="{ 'text-blue-600 bg-gray-100 rounded-t-lg active': activeTab === 'details', 'hover:text-gray-600 hover:bg-gray-50': activeTab !== 'details' }" class="inline-block p-4">
         Details
       </button>
     </li>
     <li class="me-2">
-      <button (click)="setActiveTab('about')" [ngClass]="{ 'text-blue-600 bg-gray-100 rounded-t-lg active dark:bg-gray-800 dark:text-blue-500': activeTab === 'about', 'hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300': activeTab !== 'about' }" class="inline-block p-4">
+      <button (click)="setActiveTab('about')" [ngClass]="{ 'text-blue-600 bg-gray-100 rounded-t-lg active': activeTab === 'about', 'hover:text-gray-600 hover:bg-gray-50': activeTab !== 'about' }" class="inline-block p-4">
         About
       </button>
     </li>

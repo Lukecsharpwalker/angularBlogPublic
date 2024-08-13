@@ -41,6 +41,7 @@ export const appConfig: ApplicationConfig = {
         typescript: () => import('highlight.js/lib/languages/typescript'),
         javascript: () => import('highlight.js/lib/languages/javascript'),
         css: () => import('highlight.js/lib/languages/css'),
+        plain: () => import('highlight.js/lib/languages/plaintext'),
       },
     }),
     provideQuillConfig({

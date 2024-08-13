@@ -10,6 +10,7 @@ import { Post } from '../../../shared/_models/post.interface';
 import { PostForm } from '../../_models/post-from.inteface';
 import hljs from 'highlight.js';
 import { RouterModule } from '@angular/router';
+import { loadQuillModules } from '../../../utlis/quill-configuration';
 
 @Component({
   selector: 'blog-add-post',
@@ -39,7 +40,9 @@ export class AddPostComponent implements OnInit {
       description: [null],
       isDraft: [false],
     }) as FormGroup<PostForm>;
+
   }
+
 
   ngOnInit(): void {
     if (this.postId) {
@@ -49,6 +52,10 @@ export class AddPostComponent implements OnInit {
         }
       });
     }
+    this.initializeQuill();
+  }
+  async initializeQuill() {
+    await loadQuillModules();
   }
 
   onSubmit(isDraft = false): void {
@@ -76,9 +83,12 @@ export class AddPostComponent implements OnInit {
 
     const codeBlocks = tempDiv.querySelectorAll('pre');
     codeBlocks.forEach((block) => {
-      const language = block.getAttribute('data-language') || 'plaintext';
+      let language = block.getAttribute('data-language') || 'plaintext';
       const codeElement = document.createElement('code');
       codeElement.className = language;
+      if (language === 'plain') {
+        language = 'plaintext';
+      }
       codeElement.innerHTML = hljs.highlight(block.textContent || '', { language }).value;
       block.innerHTML = '';
       block.appendChild(codeElement);
