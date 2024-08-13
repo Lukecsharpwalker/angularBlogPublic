@@ -1,7 +1,7 @@
 <div [ngClass]="first ? 'card-main' : 'card-default'" class="post-card">
   <div [ngClass]="first ? 'flex flex-col lg:flex-row' : ''">
     <ng-content select="card-image"></ng-content>
-    <div [ngClass]="first ? 'w-full lg:w-1/3 p-4' : 'post-content'">
+    <div [ngClass]="first ? 'w-full lg:w-1/3 p-4 pt-0' : 'post-content'">
       <ng-content select="card-header"></ng-content>
       <ng-content select="card-description"></ng-content>
     </div>

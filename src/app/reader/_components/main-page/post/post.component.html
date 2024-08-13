@@ -9,9 +9,9 @@
       </svg>
       Back
     </button>
-    <img class="w-full h-64 object-cover mt-10" src="{{index}}-min.png" alt="{{ post.title }}" />
-    <h1 class="text-3xl font-bold text-center my-5">{{ post.title }}</h1>
-    <p class="text-center text-gray-500">{{ post.author }} - {{ post.date | date }}</p>
+    <img class="w-full h-64 object-cover mt-10" src="{{date}}-post.webp" alt="{{ post.title }}" />
+    <h1 class="font-bold text-center my-5 tittle">{{ post.title }}</h1>
+    <p class="text-center text-gray-500">{{ post.author }} - {{ post.dateJS | date }}</p>
     <!-- TODO: Add social share buttons -->
 
     <div class="mt-4 leading-8" [innerHTML]="post.content"></div>

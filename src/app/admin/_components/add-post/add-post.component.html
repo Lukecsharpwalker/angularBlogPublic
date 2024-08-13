@@ -1,13 +1,17 @@
 @defer {
-<form [formGroup]="blogForm" (ngSubmit)="onSubmit()">
-  <label for="title">Title:</label>
-  <input id="title" formControlName="title" required>
-  @if (blogForm.get('title')?.invalid && (blogForm.get('title')?.dirty || blogForm.get('title')?.touched)) {
-    @if (blogForm.get('title')?.errors?.['required']) {
-      <div>Title is required.</div>
-    }
+<form class="p-12 flex flex-col gap-2" [formGroup]="blogForm" (ngSubmit)="onSubmit()">
+  <div class="w-full flex">
+    <input type="text" formControlName="title" placeholder="Title" class="input input-bordered w-full" required/>
+  </div>
+  @if (blogForm.controls.title.invalid && (blogForm.controls.title.dirty || blogForm.controls.title.touched)) {
+  @if (blogForm.controls.title.errors?.['required']) {
+    <div>Title is required.</div>
   }
-  <p-editor ngDefaultControl formControlName="content" [style]="{ height: '700px' }" />
-  <button class="btn btn--primary" type="submit" [disabled]="blogForm.invalid">Submit</button>
+  }
+  <quill-editor formControlName="content" class="h-screen w-full"></quill-editor>
+  <div class="mt-12 btn--group">
+    <button class="btn btn--primary" type="submit">Submit</button>
+    <button class="btn btn--secondary" type="button" (click)="onSubmit(true)">Save as a draft</button>
+  </div>
 </form>
 }

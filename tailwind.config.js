@@ -3,6 +3,9 @@ module.exports = {
   content: [
     './src/**/*.{html,ts}',
   ],
+  daisyui: {
+    themes: ["light"]
+  },
   theme: {
     extend: {
       colors: {
@@ -13,6 +16,8 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    require('daisyui')
+  ],
 };
 

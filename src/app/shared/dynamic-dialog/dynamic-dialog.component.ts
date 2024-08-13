@@ -13,7 +13,7 @@ import { ModalStatusEnum } from '../_models/modal-status.interface';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DynamicDialogComponent<C = unknown> implements OnInit{
-  @Input() component!: Type<C>;
+  @Input() component?: Type<C>;
   @Input() modalConfig?: ModalConfig;
 
   divEl = viewChild.required('dynamicComponentContainer', {read: ViewContainerRef});
@@ -23,7 +23,7 @@ export class DynamicDialogComponent<C = unknown> implements OnInit{
   ModalStatusEnum = ModalStatusEnum;
 
   ngOnInit(): void {
-    if (this.divEl()) {
+    if (this.divEl() && this.component) {
       this.divEl().createComponent(this.component);
     }
   }

@@ -1,4 +1,5 @@
 import { SafeHtml } from "@angular/platform-browser";
+import { Timestamp } from "firebase/firestore";
 
 export interface Post {
   id?: string;
@@ -6,7 +7,8 @@ export interface Post {
   content: string | SafeHtml;
   description?: string;
   author?: string;
-  date?: string;
+  date: Timestamp;
+  dateJS?: Date;
   image?: string;
   tags?: string[];
   likes?: number;
@@ -17,4 +19,5 @@ export interface Post {
   category?: string;
   commentsEnabled?: boolean;
   likesEnabled?: boolean;
+  isDraft?: boolean;
 }
