@@ -13,7 +13,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 @Component({
   selector: 'app-post',
   standalone: true,
-  providers: [ReaderApiService],
+  providers: [ReaderApiService, DatePipe],
   templateUrl: './post.component.html',
   styleUrl: './post.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -21,24 +21,26 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class PostComponent implements OnInit {
   @Input() id!: string;
-  @Input() index!: number;
 
   apiService = inject(ReaderApiService);
   injector = inject(Injector);
   router = inject(Router);
+  datePipe = inject(DatePipe);
 
   private sanitizer = inject(DomSanitizer);
 
   post$!: Observable<Post | null>;
   comments$!: Signal<Comment[] | undefined>;
+  date: string = '';
 
   ngOnInit() {
-    this.index = Number(this.index + 1);
     this.post$ = from(this.apiService.getPost(this.id))
       .pipe(
         map((post: Post | null) => {
           if (post) {
             post.dateJS = post.date.toDate();
+            this.date = this.datePipe.transform(post.dateJS, 'dd-MM-yyyy') as string;
+            console.log(this.date)
             post.content = this.sanitizer.bypassSecurityTrustHtml(post.content as string);
           }
           return post;
