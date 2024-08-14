@@ -14,8 +14,8 @@ import { AuthService } from './auth/auth.service';
 import { authInnitializer } from './utlis/initialize-auth';
 import { provideQuillConfig } from 'ngx-quill/config';
 import { provideHighlightOptions } from 'ngx-highlightjs';
-import { quillToolbarConfig } from './utlis/quill-configuration';
-import hljs from 'highlight.js';
+import { quillToolbarConfig } from './utlis/quill-toolbar';
+import hljs from 'highlight.js/lib/core';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -46,9 +46,9 @@ export const appConfig: ApplicationConfig = {
     }),
     provideQuillConfig({
       modules: {
-        syntax: { hljs },
+        syntax: { hljs},
         toolbar: quillToolbarConfig
       }
     }),
-  ]
+  ],
 };

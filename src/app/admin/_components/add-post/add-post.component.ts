@@ -40,7 +40,7 @@ export class AddPostComponent implements OnInit {
       description: [null],
       isDraft: [false],
     }) as FormGroup<PostForm>;
-
+    
   }
 
 
