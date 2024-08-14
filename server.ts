@@ -19,7 +19,7 @@ async function fetchPosts() {
     }
     const data: [{id:string}] = await response.json();
     const postIds = data.map(post => post.id);
-    const routes = ['', ...postIds.map(id => `/details/${id}`)];
+    const routes = ['', '/', ...postIds.map(id => `/details/${id}`)];
     console.log('routes rendered:', routes);
     fs.writeFileSync('routes.txt', routes.join('\n'), 'utf8');
 
