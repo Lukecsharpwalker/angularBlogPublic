@@ -8,7 +8,9 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:AngularBlogApp": "node dist/angular-blog-app/server/server.mjs"
+    "serve:ssr:AngularBlogApp": "node dist/angular-blog-app/server/server.mjs",
+    "build:stats": "ng build --stats-json",
+    "analyze": "webpack-bundle-analyzer dist/angular-blog-app/stats.json"
   },
   "private": true,
   "dependencies": {
@@ -55,6 +57,8 @@
     "karma-jasmine-html-reporter": "~2.1.0",
     "postcss": "^8.4.38",
     "tailwindcss": "^3.4.4",
-    "typescript": "~5.4.2"
+    "typescript": "~5.4.2",
+    "webpack-bundle-analyzer": "^4.10.2",
+    "webpack-cli": "^5.1.4"
   }
 }
