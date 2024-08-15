@@ -77,10 +77,9 @@ export function app(): express.Express {
 }
 
 async function run(): Promise<void> {
-  fetchPosts();
-  const port = process.env['PORT'] || 4000;
-
   // Generate routes.txt before starting the server
+  // fetchPosts();
+  const port = process.env['PORT'] || 4000;
 
   // Start up the Node server
   const server = app();
