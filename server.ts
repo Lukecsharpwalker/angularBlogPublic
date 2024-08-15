@@ -18,10 +18,15 @@ async function fetchPosts() {
       throw new Error('Network response was not ok ' + response.statusText);
     }
     const data: [{id:string}] = await response.json();
+    console.log('data fetched:', data);
     const postIds = data.map(post => post.id);
+    console.log('postIds:', postIds);
     const routes = ['', '/', ...postIds.map(id => `/details/${id}`)];
+    fs.rmSync('routes.txt', { force: true });
     console.log('routes rendered:', routes);
     fs.writeFileSync('routes.txt', routes.join('\n'), 'utf8');
+    const file = fs.readFileSync('routes.txt', 'utf8');
+    console.log('routes.txt:', file);
 
   } catch (error) {
     console.error('Error fetching posts:', error);
