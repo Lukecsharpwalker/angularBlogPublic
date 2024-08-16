@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Injector, Input, OnInit, Signal, inject, runInInjectionContext } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, Input, OnInit, Signal, inject, runInInjectionContext } from '@angular/core';
 import { ReaderApiService } from '../../../_services/reader-api.service';
 import { AsyncPipe, DatePipe, JsonPipe, NgIf } from '@angular/common';
 import { Post } from '../../../../shared/_models/post.interface';
@@ -9,6 +9,8 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { Comment } from '../../../../shared/_models/comment.inteface';
 import { Router } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
+import { cp } from 'node:fs';
+import { AuthService } from '../../../../auth/auth.service';
 
 @Component({
   selector: 'app-post',
@@ -26,12 +28,17 @@ export class PostComponent implements OnInit {
   injector = inject(Injector);
   router = inject(Router);
   datePipe = inject(DatePipe);
+  cdr = inject(ChangeDetectorRef);
+  authService = inject(AuthService);
 
   private sanitizer = inject(DomSanitizer);
 
   post$!: Observable<Post | null>;
   comments$!: Signal<Comment[] | undefined>;
   date: string = '';
+  constructor() { 
+    
+  }
 
   ngOnInit() {
     this.post$ = from(this.apiService.getPost(this.id))
