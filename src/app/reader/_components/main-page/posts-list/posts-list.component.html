@@ -1,0 +1,30 @@
+<header class="bg-primary h-[200px] flex lg:justify-center">
+  <div class="lg:w-8/12 sm:w-8/12 sm:w-100 flex">
+    <div class="flex row items-center">
+      <img src="logo_white_A.png" alt="Logo" class="h-36">
+      <div>
+        <h1 class="text-white lg:text-4xl md:text-2xl sm:text-xl font-bold">Welcome to Angular.fun</h1>
+        <h2 class="text-white lg:text-xl md:text-l sm:text-sm">Give fun back to coding</h2>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="flex justify-center mt-5">
+  <div class="w-full lg:w-8/12">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 m-5 l:m-0">
+      @for (post of posts$ | async; track post.id; let f = $first) {
+        <blog-card [first]="f" [ngClass]="f ? 'col-span-1 md:col-span-2 lg:col-span-3' : ''" >
+          <card-image>
+            <img [src]="f ? (post.dateJS | date:'dd-MM-yyyy') + '-big.webp' : (post.dateJS | date:'dd-MM-yyyy') + '-small.webp'" alt="Post Image" [ngClass]="f ? 'w-full ' : 'post-image'" />
+          </card-image>
+          <card-header>
+              <h2 [routerLink]="['details', post.id]" class="post-title underline cursor-pointer">{{ post.title }}</h2>
+          </card-header>
+          <card-description>
+            <p class="post-summary">{{ post.description }}</p>
+          </card-description>
+        </blog-card>
+      }
+    </div>
+  </div>
+</div>
