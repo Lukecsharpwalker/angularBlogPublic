@@ -1,0 +1,13 @@
+<div class="dialog-content">
+  <h3 class="text-lg font-medium mb-4">Insert Image</h3>
+  <form [formGroup]="form" >
+    <div class="mb-4">
+      <label for="src" class="block text-sm font-medium">Image URL</label>
+      <input type="text" id="src" formControlName="src" class="input input-bordered w-full" placeholder="https://example.com/image.jpg" />
+    </div>
+    <div class="mb-4">
+      <label for="alt" class="block text-sm font-medium">Alt Text</label>
+      <input type="text" id="alt" formControlName="alt" class="input input-bordered w-full" placeholder="Description of the image" />
+    </div>
+  </form>
+</div>

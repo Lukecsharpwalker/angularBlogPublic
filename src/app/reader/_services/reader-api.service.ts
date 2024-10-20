@@ -15,7 +15,7 @@ export class ReaderApiService {
   private postsCollection = collection(this.firestore, Collections.POST)
   private postsQuery = query(
     this.postsCollection,
-      where(PostField.IS_DRAFT, QueryOperators.EQUAL, false),
+      // where(PostField.IS_DRAFT, QueryOperators.EQUAL, false),
       orderBy(PostField.DATE, QueryOperators.DESC));
 
   posts$ = collectionData(this.postsQuery, { idField: 'id' }) as Observable<Post[]>;

@@ -1,7 +1,8 @@
-export interface ModalStatus {
-  status: ModalStatusEnum
+export interface ModalStatus<T = unknown> {
+  closeStatus: ModalCloseStatusEnum
+  data?: T
 }
-export enum ModalStatusEnum {
+export enum ModalCloseStatusEnum {
   ACCEPTED = 'accepted',
   REJECTED = 'rejected',
   CLOSED = 'closed'

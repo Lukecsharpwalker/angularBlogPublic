@@ -3,7 +3,8 @@ import { AuthService } from '../auth.service';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { DynamicDialogService } from '../../shared/dynamic-dialog/dynamic-dialog.service';
 import { Credentials } from '../../shared/_models/credentials.interface';
-import { ModalStatusEnum } from '../../shared/_models/modal-status.interface';
+import { ModalCloseStatusEnum, ModalStatus } from '../../shared/_models/modal-status.interface';
+import { LoginFormControls } from './login.interface';
 
 
 @Component({
@@ -17,7 +18,7 @@ import { ModalStatusEnum } from '../../shared/_models/modal-status.interface';
 })
 export class LoginCompontent {
 
-  loginForm = new FormGroup({
+  form = new FormGroup<LoginFormControls>({
     email: new FormControl<string>('', { nonNullable: true }),
     password: new FormControl<string>('', { nonNullable: true }),
   });
@@ -29,10 +30,13 @@ export class LoginCompontent {
 
   onSubmit(): void {
     this.isSubmitted = true;
-    this.authService.loginWithEmail(this.loginForm.value as Credentials)
+    this.authService.loginWithEmail(this.form.value as Credentials)
       .then(() => {
         this.loginError.set(false);
-        this.dynamicDialogService.closeDialog(ModalStatusEnum.ACCEPTED);
+        const status = {
+          closeStatus: ModalCloseStatusEnum.ACCEPTED
+        } as ModalStatus;
+        this.dynamicDialogService.closeDialog(status);
       })
       .catch(() => {
         this.loginError.set(true);
@@ -40,6 +44,9 @@ export class LoginCompontent {
   }
   onGoogleLogin() {
     this.authService.loginGoogle();
-    this.dynamicDialogService.closeDialog(ModalStatusEnum.ACCEPTED);
+    const status = {
+      closeStatus: ModalCloseStatusEnum.ACCEPTED
+    } as ModalStatus;
+    this.dynamicDialogService.closeDialog(status);
   }
 }

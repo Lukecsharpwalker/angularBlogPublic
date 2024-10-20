@@ -1,4 +1,4 @@
-<form class="w-100 mx-auto bg-white p-8 rounded-lg shadow-md" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+<form class="w-100 mx-auto bg-white p-8 rounded-lg shadow-md" [formGroup]="form" (ngSubmit)="onSubmit()">
   <div class="mb-4">
     <label for="email" class="block text-gray-700 text-sm font-bold mb-2">Email:</label>
     <input
@@ -9,7 +9,7 @@
       class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-900 focus:border-transparent"
       placeholder="Enter your email"
     />
-    @if (isSubmitted && loginForm.controls.email.errors?.['required']) {
+    @if (isSubmitted && form.controls.email.errors?.['required']) {
     <div class="text-red-500 text-xs mt-1">
       Email is required.
     </div>
@@ -25,7 +25,7 @@
       class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-900 focus:border-transparent"
       placeholder="Enter your password"
     />
-    @if (isSubmitted && loginForm.controls.password.errors?.['required']) {
+    @if (isSubmitted && form.controls.password.errors?.['required']) {
     <div class="text-red-500 text-xs mt-1">
       Password is required.
     </div>

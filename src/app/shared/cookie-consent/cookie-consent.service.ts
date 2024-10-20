@@ -1,5 +1,5 @@
 import { Injectable, ViewContainerRef, inject } from '@angular/core';
-import { ModalStatusEnum } from '../_models/modal-status.interface';
+import { ModalCloseStatusEnum, ModalStatus } from '../_models/modal-status.interface';
 import { DynamicDialogService } from '../dynamic-dialog/dynamic-dialog.service';
 import { CookieConsentComponent } from './cookie-consent.component';
 import { LocalStorageEnum } from '../_enums/local-storage';
@@ -21,13 +21,13 @@ export class CookieConsentService {
         },
         CookieConsentComponent,
       ).subscribe((status) => {
-        if (status === ModalStatusEnum.ACCEPTED) {
+        if (status.closeStatus === ModalCloseStatusEnum.ACCEPTED) {
           this.acceptCookies();
         }
-        if (status === ModalStatusEnum.REJECTED) {
+        if (status.closeStatus === ModalCloseStatusEnum.REJECTED) {
           this.denyCookies();
         }
-        this.closePopup(status);
+        this.closePopup(status.closeStatus);
       });
     }
   }
@@ -40,7 +40,10 @@ export class CookieConsentService {
     localStorage.setItem(LocalStorageEnum.COOKIES_CONSENT, 'false');
   }
 
-  closePopup(status: ModalStatusEnum) {
+  closePopup(closeStatus: ModalCloseStatusEnum) {
+    const status = {
+      closeStatus: closeStatus
+    } as ModalStatus;
     this.dialogService.closeDialog(status);
   }
 }

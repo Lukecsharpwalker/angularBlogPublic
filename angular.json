@@ -30,7 +30,7 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               {
-                "glob": "**/*",
+                "glob": "**/**",
                 "input": "public"
               }
             ],
@@ -39,7 +39,7 @@
             ],
             "scripts": [],
             "server": "src/main.server.ts",
-            "prerender": 
+            "prerender":
             {
               "routesFile": "routes.txt"
             },

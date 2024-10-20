@@ -1,16 +1,20 @@
-import { ChangeDetectionStrategy, Component, CUSTOM_ELEMENTS_SCHEMA, HostListener, inject, Input, OnInit, ViewContainerRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, CUSTOM_ELEMENTS_SCHEMA, HostListener, inject, Input, OnInit, viewChild, ViewContainerRef } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, NgModel, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AdminApiService } from '../../_services/admin-api.service';
 import { FirestoreModule, Timestamp } from '@angular/fire/firestore';
 import { AsyncPipe } from '@angular/common';
 import { EditorModule } from 'primeng/editor';
 import { HighlightModule } from 'ngx-highlightjs';
-import { QuillEditorComponent } from 'ngx-quill'
+import { QuillEditorComponent, Range } from 'ngx-quill'
 import { Post } from '../../../shared/_models/post.interface';
 import { PostForm } from '../../_models/post-from.inteface';
 import hljs from 'highlight.js';
 import { RouterModule } from '@angular/router';
 import { loadQuillModules } from '../../../utlis/quill-configuration';
+import { DynamicDialogService } from '../../../shared/dynamic-dialog/dynamic-dialog.service';
+import { ModalConfig } from '../../../shared/_models/modal-config.intreface';
+import { AddImageComponent } from './add-image/add-image.component';
+import { AddImageForm } from './add-image/add-image-controls.interface';
 
 @Component({
   selector: 'blog-add-post',
@@ -24,10 +28,13 @@ import { loadQuillModules } from '../../../utlis/quill-configuration';
 })
 export class AddPostComponent implements OnInit {
   @Input() postId?: string;
+  quill = viewChild.required<QuillEditorComponent>('quill');
 
   blogForm: FormGroup<PostForm>;
+  range: Range | null = null;
 
   viewContainerRef = inject(ViewContainerRef);
+  dialogService = inject(DynamicDialogService<AddImageForm>);
 
   private fb = inject(FormBuilder);
   private apiService = inject(AdminApiService);
@@ -40,7 +47,8 @@ export class AddPostComponent implements OnInit {
       description: [null],
       isDraft: [false],
     }) as FormGroup<PostForm>;
-    
+
+
   }
 
 
@@ -74,27 +82,71 @@ export class AddPostComponent implements OnInit {
   }
 
   highlightContent(): void {
-    this.blogForm.controls.content.setValue(this.extractAndHighlight(this.blogForm.controls.content.value as string));
+    this.blogForm.controls.content.setValue(this.extractAndHighlightHTML(this.blogForm.controls.content.value as string));
+    this.blogForm.controls.content.setValue(this.extractAndHighlightTS(this.blogForm.controls.content.value as string));
   }
 
-  extractAndHighlight(htmlContent: string): string {
+  extractAndHighlightHTML(htmlContent: string): string {
     const tempDiv = document.createElement('div');
     tempDiv.innerHTML = htmlContent;
 
-    const codeBlocks = tempDiv.querySelectorAll('pre');
-    codeBlocks.forEach((block) => {
-      let language = block.getAttribute('data-language') || 'plaintext';
+
+    const codeBlocksHTML = tempDiv.querySelectorAll('pre[data-language="xml"]');
+    codeBlocksHTML.forEach((block) => {
+      let language = 'xml';
       const codeElement = document.createElement('code');
       codeElement.className = language;
-      if (language === 'plain') {
-        language = 'plaintext';
-      }
       codeElement.innerHTML = hljs.highlight(block.textContent || '', { language }).value;
       block.innerHTML = '';
       block.appendChild(codeElement);
     });
 
     return tempDiv.innerHTML;
+  }
+  extractAndHighlightTS(htmlContent: string): string {
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = htmlContent;
+
+    const codeBlocksTS = tempDiv.querySelectorAll('pre[data-language="typescript"]');
+    codeBlocksTS.forEach((block) => {
+      let language = 'typescript';
+      const codeElement = document.createElement('code');
+      codeElement.className = language;
+      codeElement.innerHTML = hljs.highlight(block.textContent || '', { language }).value;
+      block.innerHTML = '';
+      block.appendChild(codeElement);
+    });
+
+    return tempDiv.innerHTML;
+  }
+
+  // Function to insert an image into Quill editor
+  insertImage() {
+    const modalConfig: ModalConfig = {
+      title: 'Add Image',
+      primaryButton: 'Insert',
+      secondaryButton: 'Cancel',
+    }
+    this.range = this.quill().quillEditor.getSelection();
+    this.dialogService.openDialog<AddImageComponent>
+      (this.viewContainerRef, modalConfig, AddImageComponent).subscribe((modalStatus) => {
+        if (modalStatus.data) {
+          const imgTag = `<img src="${modalStatus.data.form.controls.src.value}" alt="${modalStatus.data.form.controls.alt.value}" style="max-width: 100%;">`;
+          if (this.range) {
+            const newValue = this.insertString(this.blogForm.controls.content.value as string, this.blogForm.controls.content.value.toString().length, imgTag);
+            this.blogForm.controls.content.setValue(newValue);
+          }
+        }
+      });
+  }
+
+  insertString(originalString: string, index: number, stringToInsert: string): string {
+    const result = [
+      ...originalString.slice(0, index),
+      ...stringToInsert,
+      ...originalString.slice(index),
+    ].join('');
+    return result;
   }
 
   @HostListener('window:beforeunload', ['$event'])

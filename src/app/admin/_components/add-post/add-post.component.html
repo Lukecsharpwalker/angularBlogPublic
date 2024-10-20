@@ -8,7 +8,8 @@
     <div>Title is required.</div>
   }
   }
-  <quill-editor formControlName="content" class="h-screen w-full"></quill-editor>
+  <button class="btn btn--secondary" type="button" (click)="insertImage()">Insert Image</button>
+  <quill-editor #quill formControlName="content" class="h-screen w-full"></quill-editor>
   <div class="mt-12 btn--group">
     <button class="btn btn--primary" type="submit">Submit</button>
     <button class="btn btn--secondary" type="button" (click)="onSubmit(true)">Save as a draft</button>

@@ -19,7 +19,7 @@ export class NavbarComponent {
   private viewContainerRef = inject(ViewContainerRef);
 
   signIn() {
-    this.dynamicDialogService.openDialog(
+    this.dynamicDialogService.openDialog<LoginCompontent>(
       this.viewContainerRef,
       { title: 'Sign In'},
       LoginCompontent,

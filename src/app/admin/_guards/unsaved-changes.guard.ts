@@ -2,7 +2,7 @@ import { CanDeactivateFn } from '@angular/router';
 import { AddPostComponent } from '../_components/add-post/add-post.component';
 import { DynamicDialogService } from '../../shared/dynamic-dialog/dynamic-dialog.service';
 import { inject } from '@angular/core';
-import { ModalStatusEnum } from '../../shared/_models/modal-status.interface';
+import { ModalCloseStatusEnum } from '../../shared/_models/modal-status.interface';
 import { map, of } from 'rxjs';
 
 export const unsavedChangesGuard: CanDeactivateFn<AddPostComponent> = (component: AddPostComponent) => {
@@ -18,7 +18,7 @@ export const unsavedChangesGuard: CanDeactivateFn<AddPostComponent> = (component
         })
       .pipe(
         map((status) => {
-          if (status === ModalStatusEnum.ACCEPTED) {
+          if (status.closeStatus === ModalCloseStatusEnum.ACCEPTED) {
             return true;
           } else {
             return false;

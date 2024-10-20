@@ -20,14 +20,14 @@
         <div class="bg-gray-50 px-4 py-3 sm:px-6 btn--group justify-between">
           <div>
             @if(modalConfig?.primaryButton) {
-              <button (click)="closeDialog(ModalStatusEnum.ACCEPTED)" type="button" class="btn btn--primary">
+              <button (click)="closeDialog(ModalCloseStatusEnum.ACCEPTED)" type="button" class="btn btn--primary">
                 {{ modalConfig?.primaryButton }}
               </button>
             }
           </div>
           <div>
             @if(modalConfig?.secondaryButton) {
-              <button (click)="closeDialog(ModalStatusEnum.REJECTED)" type="button" class="btn btn--secondary">
+              <button (click)="closeDialog(ModalCloseStatusEnum.REJECTED)" type="button" class="btn btn--secondary">
                 {{ modalConfig?.secondaryButton }}
               </button>
             }
