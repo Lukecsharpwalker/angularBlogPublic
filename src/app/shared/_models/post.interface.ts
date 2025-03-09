@@ -1,5 +1,6 @@
-import { SafeHtml } from "@angular/platform-browser";
-import { Timestamp } from "firebase/firestore";
+import { SafeHtml } from '@angular/platform-browser';
+import { Timestamp } from 'firebase/firestore';
+import { TableOfContentsInterface } from './tableOfContents.interface';
 
 export interface Post {
   id?: string;
@@ -20,4 +21,8 @@ export interface Post {
   commentsEnabled?: boolean;
   likesEnabled?: boolean;
   isDraft?: boolean;
+  updated?: Date;
+  readingTime?: string;
+  difficulty?: number;
+  tableOfContents?: TableOfContentsInterface[];
 }

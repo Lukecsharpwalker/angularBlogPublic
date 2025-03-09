@@ -1,0 +1,14 @@
+:host {
+  --position: calc(var(--ngPosition, 0));
+}
+
+.label {
+  border-top-right-radius: 2rem;
+  border-bottom-right-radius: 2rem;
+  position: absolute;
+  left: 0;
+  background-color: #2e62f5; /* Blue color */
+  color: white;
+  padding: 8px 16px;
+  margin-bottom: 1rem;
+}

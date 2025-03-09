@@ -1,33 +1,68 @@
-<div class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+<div
+  class="relative z-10"
+  aria-labelledby="modal-title"
+  role="dialog"
+  aria-modal="true"
+  (click)="onOverlayClick($event)"
+>
 
-  <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+  <div
+    class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity bg-white/70 dark:bg-slate-800/70 backdrop-blur-md border border-white/20 dark:border-slate-700/50 shadow-xl"
+  ></div>
 
   <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
-    <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
 
-      <div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+    <div (click)="closeDialog()"
+         class="flex min-h-20  md:min-h-full items-end justify-center p-4 text-center sm:items-center "
+    >
+
+      <div (click)="$event.stopPropagation()"
+           class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all my-10 md:my-0 md:max-w-fit"
+      >
+        <button
+          (click)="closeDialog()"
+          type="button"
+          class="absolute top-3 right-3 rounded-full p-1.5 text-gray-400 hover:bg-gray-100/40 hover:text-gray-600
+        dark:hover:bg-gray-700/40 dark:hover:text-gray-200 focus:outline-none transition-colors"
+          aria-label="Close">
+          <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
         <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
-
-            <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
-              <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">{{ modalConfig?.title || '' }}</h3>
-              <hr class="h-px w-100 my-1 bg-gray-100 border-0">
-              <div class="mt-2 min-h-24">
-                {{ modalConfig?.content || '' }}
-                <ng-template #dynamicComponentContainer></ng-template>
-              </div>
+          <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+            <h3
+              class="text-base font-semibold leading-6 text-gray-900"
+              id="modal-title"
+            >
+              {{ modalConfig?.title || "" }}
+            </h3>
+            <hr class="h-px w-100 my-1 bg-gray-100 border-0"/>
+            <div class="mt-2 min-h-24 max-h-[65vh] overflow-auto">
+              {{ modalConfig?.content || "" }}
+              <ng-template #dynamicComponentContainer></ng-template>
+            </div>
           </div>
         </div>
         <div class="bg-gray-50 px-4 py-3 sm:px-6 btn--group justify-between">
           <div>
-            @if(modalConfig?.primaryButton) {
-              <button (click)="closeDialog(ModalCloseStatusEnum.ACCEPTED)" type="button" class="btn btn--primary">
+            @if (modalConfig?.primaryButton) {
+              <button
+                (click)="closeDialog(ModalCloseStatusEnum.ACCEPTED)"
+                type="button"
+                class="btn btn--primary"
+              >
                 {{ modalConfig?.primaryButton }}
               </button>
             }
           </div>
           <div>
-            @if(modalConfig?.secondaryButton) {
-              <button (click)="closeDialog(ModalCloseStatusEnum.REJECTED)" type="button" class="btn btn--secondary">
+            @if (modalConfig?.secondaryButton) {
+              <button
+                (click)="closeDialog(ModalCloseStatusEnum.REJECTED)"
+                type="button"
+                class="btn btn--secondary"
+              >
                 {{ modalConfig?.secondaryButton }}
               </button>
             }

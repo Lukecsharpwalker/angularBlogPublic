@@ -1,0 +1,32 @@
+:host ::ng-deep {
+  /* Mobile screens up to 600px */
+  pre {
+    line-height: 1.2rem;
+
+    code {
+      font-size: 0.6rem;
+    }
+  }
+
+  /* Tablets and medium screens 601px to 1024px */
+  @media (min-width: 601px) and (max-width: 1024px) {
+    pre {
+      line-height: 1.4rem;
+
+      code {
+        font-size: 0.75rem;
+      }
+    }
+  }
+
+  /* Large screens above 1024px */
+  @media (min-width: 1025px) {
+    pre {
+      line-height: 1.6rem;
+
+      code {
+        font-size: 0.9rem;
+      }
+    }
+  }
+}

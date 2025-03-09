@@ -1,29 +1,89 @@
-<header class="bg-primary h-[200px] flex lg:justify-center">
-  <div class="lg:w-8/12 sm:w-8/12 sm:w-100 flex">
-    <div class="flex row items-center">
-      <img src="logo_white_A.png" alt="Logo" class="h-36">
-      <div>
-        <h1 class="text-white lg:text-4xl md:text-2xl sm:text-xl font-bold">Welcome to Angular.fun</h1>
-        <h2 class="text-white lg:text-xl md:text-l sm:text-sm">Give fun back to coding</h2>
-      </div>
+<app-about-me></app-about-me>
+<div class="relative mt-4 pb-4">
+  <div
+    #scrollContainer
+    class="shadow-lg bg-white p-4 sm:p-6 sm:px-14 rounded-[32px] sm:rounded-[64px] overflow-x-scroll hide-scrollbar whitespace-nowrap scroll-smooth"
+  >
+    <div class="inline-flex space-x-4 gap-x-0 md:gap-x-6">
+      @for (tag of TAGS; track tag.name) {
+        <div class="flex flex-col items-center min-w-24 group">
+          <div
+            [ngStyle]="{ 'background-color': tag.color }"
+            class="font-bold text-gray-700 rounded-full flex items-center justify-center font-mono p-3 md:p-5 min-w-18 transform transition-all duration-300 hover:scale-110 hover:shadow-lg relative cursor-pointer"
+          >
+            <img
+              ngSrc="tags/{{ tag.icon }}"
+              [alt]="tag.name"
+              class="w-8 h-8 sm:w-10 sm:h-10 transition-transform duration-300 group-hover:scale-110"
+              width="32"
+              height="32"
+            />
+          </div>
+          <span
+            class="mt-1 sm:mt-2 text-center text-gray-600 text-sm sm:text-base"
+          >{{ tag.name }}</span
+          >
+        </div>
+      }
     </div>
   </div>
-</header>
+
+  <div class="relative -top-4 mt-2 md:hidden w-full flex justify-center">
+    <div class="w-10/12 bg-tertiary h-1 rounded-full">
+      <div
+        class="bg-primary h-1 rounded-full transition-all duration-300"
+        [style.width.%]="scrollProgress()"
+      ></div>
+    </div>
+  </div>
+
+
+  <button
+    (click)="scrollContainer.scrollLeft = scrollContainer.scrollLeft - 135"
+    class="btn btn-circle rounded-none absolute top-0 left-0 h-40 bg-base-100 bg-opacity-70 hover:bg-base-200 hidden md:flex rounded-tl-full rounded-bl-full"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="h-5 w-5 transform"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M15 19l-7-7 7-7"
+      />
+    </svg>
+  </button>
+
+  <button
+    (click)="scrollContainer.scrollLeft = scrollContainer.scrollLeft + 135"
+    class="btn btn-circle rounded-none absolute top-0 right-0 h-40 bg-base-100 bg-opacity-70 hover:bg-base-200 hidden md:flex rounded-tr-full rounded-br-full"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="h-5 w-5 transform rotate-180"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M15 19l-7-7 7-7"
+      />
+    </svg>
+  </button>
+</div>
+
 <div class="flex justify-center mt-5">
-  <div class="w-full lg:w-8/12">
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 m-5 l:m-0">
+  <div class="w-full">
+    <div class="grid">
       @for (post of posts$ | async; track post.id; let f = $first) {
-        <blog-card [first]="f" [ngClass]="f ? 'col-span-1 md:col-span-2 lg:col-span-3' : ''" >
-          <card-image>
-            <img [src]="f ? (post.dateJS | date:'dd-MM-yyyy') + '-big.webp' : (post.dateJS | date:'dd-MM-yyyy') + '-small.webp'" alt="Post Image" [ngClass]="f ? 'w-full ' : 'post-image'" />
-          </card-image>
-          <card-header>
-              <h2 [routerLink]="['details', post.id]" class="post-title underline cursor-pointer">{{ post.title }}</h2>
-          </card-header>
-          <card-description>
-            <p class="post-summary">{{ post.description }}</p>
-          </card-description>
-        </blog-card>
+        <app-post-card [post]="post"></app-post-card>
       }
     </div>
   </div>

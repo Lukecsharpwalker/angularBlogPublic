@@ -1,11 +1,27 @@
-import { ChangeDetectionStrategy, Component, CUSTOM_ELEMENTS_SCHEMA, HostListener, inject, Input, OnInit, viewChild, ViewContainerRef } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, NgModel, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+  HostListener,
+  inject,
+  Input,
+  OnInit,
+  viewChild,
+  ViewContainerRef,
+} from '@angular/core';
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  NgModel,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { AdminApiService } from '../../_services/admin-api.service';
 import { FirestoreModule, Timestamp } from '@angular/fire/firestore';
 import { AsyncPipe } from '@angular/common';
-import { EditorModule } from 'primeng/editor';
 import { HighlightModule } from 'ngx-highlightjs';
-import { QuillEditorComponent, Range } from 'ngx-quill'
+import { QuillEditorComponent, Range } from 'ngx-quill';
 import { Post } from '../../../shared/_models/post.interface';
 import { PostForm } from '../../_models/post-from.inteface';
 import hljs from 'highlight.js';
@@ -19,12 +35,19 @@ import { AddImageForm } from './add-image/add-image-controls.interface';
 @Component({
   selector: 'blog-add-post',
   standalone: true,
-  imports: [ReactiveFormsModule, FirestoreModule, AsyncPipe, FormsModule, EditorModule, QuillEditorComponent, HighlightModule, RouterModule],
+  imports: [
+    ReactiveFormsModule,
+    FirestoreModule,
+    FormsModule,
+    QuillEditorComponent,
+    HighlightModule,
+    RouterModule,
+  ],
   providers: [AdminApiService, NgModel],
   templateUrl: './add-post.component.html',
   styleUrl: './add-post.component.scss',
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AddPostComponent implements OnInit {
   @Input() postId?: string;
@@ -47,10 +70,7 @@ export class AddPostComponent implements OnInit {
       description: [null],
       isDraft: [false],
     }) as FormGroup<PostForm>;
-
-
   }
-
 
   ngOnInit(): void {
     if (this.postId) {
@@ -62,6 +82,7 @@ export class AddPostComponent implements OnInit {
     }
     this.initializeQuill();
   }
+
   async initializeQuill() {
     await loadQuillModules();
   }
@@ -82,37 +103,51 @@ export class AddPostComponent implements OnInit {
   }
 
   highlightContent(): void {
-    this.blogForm.controls.content.setValue(this.extractAndHighlightHTML(this.blogForm.controls.content.value as string));
-    this.blogForm.controls.content.setValue(this.extractAndHighlightTS(this.blogForm.controls.content.value as string));
+    this.blogForm.controls.content.setValue(
+      this.extractAndHighlightHTML(
+        this.blogForm.controls.content.value as string,
+      ),
+    );
+    this.blogForm.controls.content.setValue(
+      this.extractAndHighlightTS(
+        this.blogForm.controls.content.value as string,
+      ),
+    );
   }
 
   extractAndHighlightHTML(htmlContent: string): string {
     const tempDiv = document.createElement('div');
     tempDiv.innerHTML = htmlContent;
 
-
     const codeBlocksHTML = tempDiv.querySelectorAll('pre[data-language="xml"]');
     codeBlocksHTML.forEach((block) => {
       let language = 'xml';
       const codeElement = document.createElement('code');
       codeElement.className = language;
-      codeElement.innerHTML = hljs.highlight(block.textContent || '', { language }).value;
+      codeElement.innerHTML = hljs.highlight(block.textContent || '', {
+        language,
+      }).value;
       block.innerHTML = '';
       block.appendChild(codeElement);
     });
 
     return tempDiv.innerHTML;
   }
+
   extractAndHighlightTS(htmlContent: string): string {
     const tempDiv = document.createElement('div');
     tempDiv.innerHTML = htmlContent;
 
-    const codeBlocksTS = tempDiv.querySelectorAll('pre[data-language="typescript"]');
+    const codeBlocksTS = tempDiv.querySelectorAll(
+      'pre[data-language="typescript"]',
+    );
     codeBlocksTS.forEach((block) => {
       let language = 'typescript';
       const codeElement = document.createElement('code');
       codeElement.className = language;
-      codeElement.innerHTML = hljs.highlight(block.textContent || '', { language }).value;
+      codeElement.innerHTML = hljs.highlight(block.textContent || '', {
+        language,
+      }).value;
       block.innerHTML = '';
       block.appendChild(codeElement);
     });
@@ -126,21 +161,34 @@ export class AddPostComponent implements OnInit {
       title: 'Add Image',
       primaryButton: 'Insert',
       secondaryButton: 'Cancel',
-    }
+    };
     this.range = this.quill().quillEditor.getSelection();
-    this.dialogService.openDialog<AddImageComponent>
-      (this.viewContainerRef, modalConfig, AddImageComponent).subscribe((modalStatus) => {
+    this.dialogService
+      .openDialog<AddImageComponent>(
+        this.viewContainerRef,
+        modalConfig,
+        AddImageComponent,
+      )
+      .subscribe((modalStatus) => {
         if (modalStatus.data) {
           const imgTag = `<img src="${modalStatus.data.form.controls.src.value}" alt="${modalStatus.data.form.controls.alt.value}" style="max-width: 100%;">`;
           if (this.range) {
-            const newValue = this.insertString(this.blogForm.controls.content.value as string, this.blogForm.controls.content.value.toString().length, imgTag);
+            const newValue = this.insertString(
+              this.blogForm.controls.content.value as string,
+              this.blogForm.controls.content.value.toString().length,
+              imgTag,
+            );
             this.blogForm.controls.content.setValue(newValue);
           }
         }
       });
   }
 
-  insertString(originalString: string, index: number, stringToInsert: string): string {
+  insertString(
+    originalString: string,
+    index: number,
+    stringToInsert: string,
+  ): string {
     const result = [
       ...originalString.slice(0, index),
       ...stringToInsert,

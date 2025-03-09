@@ -1,0 +1,21 @@
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  overflow-x: auto;
+  white-space: nowrap;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+
+// Optimize animations
+.group {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+
+  img {
+    transform: translateZ(0);
+  }
+}

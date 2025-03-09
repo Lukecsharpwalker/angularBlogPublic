@@ -1,8 +1,79 @@
-<!-- @if(authService.user$()){ -->
-  <nav class="my-2 flex flex-row justify-end lg:w-10/12 w-full">
-      <button (click)="signIn()" class="text-gray-500 text-sm p-2">Sign in</button>
-      <button class="rounded-full border border-gray-500 text-gray-500 text-sm p-2  mr-4 lg:mr-0">
-        Sign up
+<nav
+  #navbar
+  id="navbar"
+  class="fixed top-0 left-0 right-0 z-10 flex items-center justify-center px-4 py-2 bg-white/70 backdrop-blur-md shadow-lg transition-all duration-500 ease-in-out <!-- Mobile styles (default) --> w-full rounded-none <!-- Medium+ styles --> md:top-5 md:w-[90%] md:mx-auto md:rounded-[2rem] lg:w-[80%] xl:w-[68%]"
+  [class.scrolled]="isScrolled"
+>
+  <div class="flex-1 flex items-center justify-between">
+    <div class="flex items-center">
+      <button
+        class="md:hidden mr-2 text-gray-700 focus:outline-none"
+        (click)="toggleMenu()"
+      >
+        <svg
+          class="w-6 h-6"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          viewBox="0 0 24 24"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
       </button>
-  </nav>
-<!-- } -->
+
+      <div class="hidden md:block">
+        <input
+          type="text"
+          placeholder="Search..."
+          class="input input-success border-0 max-w-xs rounded-full"
+        />
+      </div>
+    </div>
+
+    <div
+      class="flex items-center cursor-pointer text-center mx-2"
+      [routerLink]="['/']"
+    >
+      <img src="logo.png" alt="Logo" class="h-12 md:h-16 mr-2"/>
+      <div>
+        <h1 class="text-lg font-bold mb-0 pb-0">Angular.fun</h1>
+        <h2 class="text-xs sm:text-sm mt-0 pt-0">
+          Bring the fun back to coding
+        </h2>
+      </div>
+    </div>
+
+    <div class="flex items-center">
+      <button
+        class="hidden md:inline-block btn btn--secondary border-0 ml-2"
+        (click)="signIn()"
+      >
+        Login
+      </button>
+    </div>
+  </div>
+
+  @if (isMenuOpen()) {
+    <div
+      #mobileMenu
+      class="absolute left-0 w-full bg-white/90 transition-all duration-500 ease-in-out p-4 md:hidden"
+    >
+      <div class="flex flex-col items-start space-y-4">
+        <input
+          type="text"
+          placeholder="Search..."
+          class="shadow-md input input-success border-0 w-full rounded-full outline outline-1  outline-primary"
+        />
+        <button
+          class="shadow-md btn btn--secondary border-0 w-full outline outline-1 outline-primary"
+          (click)="signIn()"
+        >
+          Login
+        </button>
+      </div>
+    </div>
+  }
+
+</nav>

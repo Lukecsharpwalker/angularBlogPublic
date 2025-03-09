@@ -1,5 +1,12 @@
 import { Injectable, inject } from '@angular/core';
-import { Firestore, collection, doc, docData, getDoc, setDoc, updateDoc } from '@angular/fire/firestore';
+import {
+  Firestore,
+  collection,
+  doc,
+  docData,
+  setDoc,
+  updateDoc,
+} from '@angular/fire/firestore';
 import { Post } from '../../shared/_models/post.interface';
 import { Collections } from '../../shared/_enums/collections';
 import { Observable } from 'rxjs';
@@ -10,17 +17,18 @@ export class AdminApiService {
 
   addPost(post: Post): void {
     const newTaskRef = doc(collection(this.firestore, Collections.POST));
-     setDoc(newTaskRef, post).finally(() => {
-      console.log('Document written with ID: ', newTaskRef.id);
-      const newTaskRefIds = doc(collection(this.firestore, `${Collections.POSTSIDS}`));
-      setDoc(newTaskRefIds, {id: newTaskRef.id}).catch((e) => {
+    setDoc(newTaskRef, post).finally(() => {
+      const newTaskRefIds = doc(
+        collection(this.firestore, `${Collections.POSTSIDS}`),
+      );
+      setDoc(newTaskRefIds, { id: newTaskRef.id }).catch((e) => {
         console.log('id error ID: ', e);
       });
     });
   }
 
   getPostById(id: string): Observable<Post | null> {
-    const postDoc = doc(this.firestore,  `${Collections.POST}/${id}`);
+    const postDoc = doc(this.firestore, `${Collections.POST}/${id}`);
     return docData(postDoc) as Observable<Post | null>;
   }
 

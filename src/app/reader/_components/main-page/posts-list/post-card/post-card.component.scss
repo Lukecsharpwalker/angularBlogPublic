@@ -1,0 +1,27 @@
+.label {
+  border-top-right-radius: 2rem;
+  border-bottom-right-radius: 2rem;
+  background-color: #2e62f5;
+  color: white;
+  padding: 8px 16px;
+  margin-bottom: 1rem;
+  transition: padding-left 0.3s, margin-left 0.3s;
+  margin-left: -16px;
+}
+
+.text-ellipsis {
+  display: -webkit-box;
+  -webkit-line-clamp: 5; /* Adjust this number to set the number of lines to display */
+  -webkit-box-orient: vertical;
+}
+
+
+article {
+  backface-visibility: hidden;
+  -webkit-font-smoothing: antialiased;
+  will-change: transform;
+
+  &:hover {
+    transform: translateY(-4px) scale(1.005);
+  }
+}
