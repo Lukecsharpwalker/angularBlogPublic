@@ -10,7 +10,8 @@
     "test": "ng test",
     "serve:ssr:AngularBlogApp": "node dist/angular-blog-app/server/server.mjs",
     "build:stats": "ng build --stats-json",
-    "analyze": "webpack-bundle-analyzer dist/angular-blog-app/stats.json"
+    "analyze": "webpack-bundle-analyzer dist/angular-blog-app/stats.json",
+    "apphosting:build": "FRAMEWORK_VERSION=19 apphosting-adapter-angular-build"
   },
   "private": true,
   "dependencies": {
@@ -25,6 +26,7 @@
     "@angular/platform-server": "^19.1.6",
     "@angular/router": "^19.1.6",
     "@angular/ssr": "^19.1.7",
+    "@apphosting/adapter-angular": "^17.2.12",
     "@tailwindcss/line-clamp": "^0.4.4",
     "express": "5.0.0",
     "firebase": "^11.3.1",
