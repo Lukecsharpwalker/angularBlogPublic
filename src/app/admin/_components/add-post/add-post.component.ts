@@ -19,7 +19,6 @@ import {
 } from '@angular/forms';
 import { AdminApiService } from '../../_services/admin-api.service';
 import { FirestoreModule, Timestamp } from '@angular/fire/firestore';
-import { AsyncPipe } from '@angular/common';
 import { HighlightModule } from 'ngx-highlightjs';
 import { QuillEditorComponent, Range } from 'ngx-quill';
 import { Post } from '../../../shared/_models/post.interface';
@@ -90,6 +89,9 @@ export class AddPostComponent implements OnInit {
   onSubmit(isDraft = false): void {
     this.highlightContent();
     if (this.blogForm.valid) {
+      const rawContent = this.blogForm.controls.content.value as string;
+      const cleanedContent = rawContent.replace(/(&nbsp;|\u00A0)/g, ' ');
+      this.blogForm.controls.content.setValue(cleanedContent);
       this.blogForm.controls.isDraft.setValue(isDraft);
       if (!this.blogForm.controls.date.value) {
         this.blogForm.controls.date.setValue(Timestamp.fromDate(new Date()));
