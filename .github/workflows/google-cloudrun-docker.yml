@@ -9,7 +9,7 @@ env:
   PROJECT_ID: 'angularblogcloud' 
   REGION: 'europe-central2'
   SERVICE: 'my-service'
-  WORKLOAD_IDENTITY_PROVIDER: 'projects/174494552293/locations/global/workloadIdentityPools/github-pool/providers/github-pool-provider' 
+  WORKLOAD_IDENTITY_PROVIDER: 'projects/174494552293/locations/global/workloadIdentityPools/github/providers/my-repo' 
 
 jobs:
   deploy:
