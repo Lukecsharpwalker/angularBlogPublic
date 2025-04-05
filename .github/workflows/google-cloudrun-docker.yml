@@ -4,7 +4,6 @@ on:
   push:
     branches: [ "main" ]
 
-# Permissions for Workload Identity Federation
 permissions:
   contents: read
   id-token: write
@@ -22,24 +21,22 @@ jobs:
         id: auth
         uses: google-github-actions/auth@v2
         with:
-          project_id: "angularblogcloud-455518"
+          project_id: "angularblogcloud-455518" # <-- Replace with your project if needed
           workload_identity_provider: "projects/863451014992/locations/global/workloadIdentityPools/github/providers/my-repo"
 
-      # 3) (Optional) Install & configure gcloud CLI
+      # 3) Install & configure gcloud CLI
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v1
         with:
           export_default_credentials: true
 
-      # 4) Configure region & enable APIs
+      # 4) Configure region (no API enabling here)
       - name: Configure gcloud
         run: |
           gcloud config set project ${{ steps.auth.outputs.project_id }}
           gcloud config set run/region europe-central2
-          gcloud services enable run.googleapis.com
-          gcloud services enable cloudbuild.googleapis.com
 
-      # 5) Install dependencies
+      # 5) Install Node.js dependencies
       - name: Install Node dependencies
         run: npm install
 
