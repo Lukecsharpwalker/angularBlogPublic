@@ -3,7 +3,7 @@ name: Deploy Angular Blog to Cloud Run
 on:
   push:
     branches:
-      - main  # or any other branch you use for production
+      - main 
 
 jobs:
   test:
@@ -24,12 +24,11 @@ jobs:
       - name: Run unit tests with headless Chrome
         run: npm run test -- --browsers=ChromeHeadless --watch=false --no-progress
         continue-on-error: false
-        # The workflow will fail if tests throw an error or fail
 
   deploy:
     name: Build and Deploy
     runs-on: ubuntu-latest
-    needs: test  # This makes deploy job dependent on the test job
+    needs: test
     
     steps:
       - name: Checkout code
@@ -62,6 +61,6 @@ jobs:
       - name: Deploy to Cloud Run using Buildpacks
         uses: google-github-actions/deploy-cloudrun@v2
         with:
-          service: angular-blog  # your Cloud Run service name
-          region: europe-central2  # match to your region
+          service: angular-blog 
+          region: europe-central2
           source: .
