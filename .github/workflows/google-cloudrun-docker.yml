@@ -1,9 +1,10 @@
+
 name: Deploy Angular Blog to Cloud Run
 
 on:
   push:
     branches:
-      - main  # lub inna gałąź, którą używasz do produkcji
+      - main  # or any other branch you use for production
 
 jobs:
   deploy:
@@ -30,9 +31,18 @@ jobs:
         with:
           credentials_json: '${{ secrets.GCP_SA_KEY }}'
 
+      - name: Install Google Cloud SDK
+        run: |
+          echo "Installing Google Cloud SDK"
+          echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] http://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+          sudo apt-get install -y apt-transport-https ca-certificates
+          sudo apt-get update && sudo apt-get install -y google-cloud-sdk
+          gcloud version
+
       - name: Deploy to Cloud Run using Buildpacks
         uses: google-github-actions/deploy-cloudrun@v2
         with:
-          service: angular-blog  # nazwa Twojej usługi Cloud Run
-          region: europe-central2   # dopasuj do regionu
+          service: angular-blog  # your Cloud Run service name
+          region: europe-central2  # match to your region
           source: .
+          
