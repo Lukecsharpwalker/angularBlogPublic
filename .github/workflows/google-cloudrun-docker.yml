@@ -21,7 +21,7 @@ jobs:
         id: auth
         uses: google-github-actions/auth@v2
         with:
-          project_id: "angularblogcloud-455518" # <-- Replace with your project if needed
+          project_id: "angularblogcloud-455518"
           workload_identity_provider: "projects/863451014992/locations/global/workloadIdentityPools/github/providers/my-repo"
 
       # 3) Install & configure gcloud CLI
