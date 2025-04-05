@@ -21,8 +21,8 @@ jobs:
         id: auth
         uses: google-github-actions/auth@v2
         with:
-          project_id: "angularblogcloud-455518"
-          workload_identity_provider: "projects/863451014992/locations/global/workloadIdentityPools/github/providers/my-repo"
+          credentials_json: '${{ secrets.GCP_SA_KEY }}'
+          project_id: ${{ env.PROJECT_ID }}
 
       # 3) Install & configure gcloud CLI
       - name: Set up Cloud SDK
