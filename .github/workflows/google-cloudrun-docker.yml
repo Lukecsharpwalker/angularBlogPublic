@@ -62,5 +62,5 @@ jobs:
         uses: google-github-actions/deploy-cloudrun@v2
         with:
           service: angular-blog 
-          region: europe-central2
+          region: europe-west4
           source: .
