@@ -13,8 +13,7 @@ import {
 } from '@angular/core';
 import { ReaderApiService } from '../../../_services/reader-api.service';
 import { AsyncPipe, DatePipe } from '@angular/common';
-import { Post } from '../../../../shared/_models/post.interface';
-import { Observable, from, map } from 'rxjs';
+import { Observable, from, map, of } from 'rxjs';
 import { CommentsComponent } from './comments/comments.component';
 import { AddCommentComponent } from './add-comment/add-comment.component';
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -23,7 +22,6 @@ import { Router } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 import { DynamicDialogService } from '../../../../shared/dynamic-dialog/dynamic-dialog.service';
 import { CodeBlockModalComponent } from './code-block-modal-component/code-block-modal-component.component';
-import { ModalStatus } from '../../../../shared/_models/modal-status.interface';
 
 @Component({
   selector: 'app-post',
@@ -47,26 +45,12 @@ export class PostComponent implements OnInit, AfterViewInit {
   private sanitizer = inject(DomSanitizer);
   private viewContainerRef = inject(ViewContainerRef);
 
-  post$!: Observable<Post | null>;
+  post$!: Observable<any | null>;
   comments$!: Signal<Comment[] | undefined>;
   date: string = '';
 
   ngOnInit() {
-    this.post$ = from(this.apiService.getPost(this.id)).pipe(
-      map((post: Post | null) => {
-        if (post) {
-          post.dateJS = post.date.toDate();
-          this.date = this.datePipe.transform(
-            post.dateJS,
-            'dd-MM-yyyy',
-          ) as string;
-          post.content = this.sanitizer.bypassSecurityTrustHtml(
-            post.content as string,
-          );
-        }
-        return post;
-      }),
-    );
+    this.post$ = of(null);
     this.comments$! = runInInjectionContext(this.injector, () =>
       toSignal(this.apiService.getComments(this.id)),
     );

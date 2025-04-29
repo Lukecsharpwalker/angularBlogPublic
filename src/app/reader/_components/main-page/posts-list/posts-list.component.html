@@ -82,7 +82,7 @@
 <div class="flex justify-center mt-5">
   <div class="w-full">
     <div class="grid">
-      @for (post of posts$ | async; track post.id; let f = $first) {
+      @for (post of posts(); track post.id; let f = $first) {
         <app-post-card [post]="post"></app-post-card>
       }
     </div>

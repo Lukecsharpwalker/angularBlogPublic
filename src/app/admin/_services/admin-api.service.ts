@@ -1,6 +1,7 @@
 import { Injectable, inject } from '@angular/core';
-import { Post } from '../../shared/_models/post.interface';
+
 import { Observable } from 'rxjs';
+import { Post } from '../../supabase-types';
 
 @Injectable()
 export class AdminApiService {

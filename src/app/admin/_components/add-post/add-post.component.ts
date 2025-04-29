@@ -20,7 +20,6 @@ import {
 import { AdminApiService } from '../../_services/admin-api.service';
 import { HighlightModule } from 'ngx-highlightjs';
 import { QuillEditorComponent, Range } from 'ngx-quill';
-import { Post } from '../../../shared/_models/post.interface';
 import { PostForm } from '../../_models/post-from.inteface';
 import hljs from 'highlight.js';
 import { RouterModule } from '@angular/router';
@@ -29,6 +28,7 @@ import { DynamicDialogService } from '../../../shared/dynamic-dialog/dynamic-dia
 import { ModalConfig } from '../../../shared/_models/modal-config.intreface';
 import { AddImageComponent } from './add-image/add-image.component';
 import { AddImageForm } from './add-image/add-image-controls.interface';
+import { Post } from '../../../types/supabase';
 
 @Component({
   selector: 'blog-add-post',

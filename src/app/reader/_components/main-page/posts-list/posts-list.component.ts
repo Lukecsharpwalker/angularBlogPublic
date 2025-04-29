@@ -1,9 +1,4 @@
-import {
-  AsyncPipe,
-  DatePipe,
-  NgOptimizedImage,
-  NgStyle,
-} from '@angular/common';
+import { DatePipe, NgOptimizedImage, NgStyle } from '@angular/common';
 import {
   CUSTOM_ELEMENTS_SCHEMA,
   ChangeDetectionStrategy,
@@ -14,27 +9,25 @@ import {
   ElementRef,
   signal,
   WritableSignal,
+  OnInit,
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { map, Observable, of } from 'rxjs';
-import { Post } from '../../../../shared/_models/post.interface';
-import { ReaderApiService } from '../../../_services/reader-api.service';
 import { AboutMeComponent } from '../../../../shared/about-me/about-me.component';
 import { PostCardComponent } from './post-card/post-card.component';
 import { TAGS } from '../../../../utlis/tags';
+import { PostsStore } from './posts.store';
 
 @Component({
   selector: 'app-posts-list',
   standalone: true,
   imports: [
-    AsyncPipe,
     RouterModule,
     AboutMeComponent,
     PostCardComponent,
     NgOptimizedImage,
     NgStyle,
   ],
-  providers: [ReaderApiService, DatePipe],
+  providers: [DatePipe],
   templateUrl: './posts-list.component.html',
   styleUrl: './posts-list.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -43,8 +36,8 @@ import { TAGS } from '../../../../utlis/tags';
 export class PostsListComponent {
   scroll = viewChild<ElementRef<HTMLElement>>('scrollContainer');
   scrollProgress: WritableSignal<number> = signal(0);
-  apiService = inject(ReaderApiService);
-  dataPipe = inject(DatePipe);
+  postStore = inject(PostsStore);
+  posts = this.postStore.posts;
 
   initialScroll = 2;
 
@@ -70,6 +63,5 @@ export class PostsListComponent {
     this.scrollProgress.set(scrollPercentage);
   }
 
-  posts$: Observable<Post[]> = of([]);
   protected readonly TAGS = TAGS;
 }

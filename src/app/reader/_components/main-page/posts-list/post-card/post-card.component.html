@@ -7,12 +7,13 @@
   <div class="bg-white w-full flex flex-col md:flex-row md:pr-4">
     <div
       class="flex flex-wrap md:flex-col items-start md:basis-2/12 gap-2 px-4 md:px-0">
-      @for (tag of tags; track tag.name; let i = $index) {
-        <app-label
-          [text]="tag.name"
-          [position]="i"
-          [color]="tag.color"
-        ></app-label>
+      @for (tag of post().post_tags; track tag.tags.id; let i = $index) {
+        @if (i < 4) {
+          <app-label
+            [text]="tag.tags.name"
+            [color]="tag.tags.color"
+          ></app-label>
+        }
       }
     </div>
 
@@ -21,7 +22,7 @@
         {{ post().title }}
       </h2>
       <div class="line-clamp-3 xl:line-clamp-4 2xl:line-clamp-5 pt-3 leading-loose">
-        {{ description() }}
+        {{ post().description }}
       </div>
     </div>
   </div>
