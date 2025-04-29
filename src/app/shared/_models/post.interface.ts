@@ -1,5 +1,4 @@
 import { SafeHtml } from '@angular/platform-browser';
-import { Timestamp } from 'firebase/firestore';
 import { TableOfContentsInterface } from './tableOfContents.interface';
 
 export interface Post {
@@ -8,7 +7,7 @@ export interface Post {
   content: string | SafeHtml;
   description?: string;
   author?: string;
-  date: Timestamp;
+  date: any;
   dateJS?: Date;
   image?: string;
   tags?: string[];

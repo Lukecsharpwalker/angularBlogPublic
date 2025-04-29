@@ -12,7 +12,6 @@ import {
   ElementRef,
 } from '@angular/core';
 import { DynamicDialogService } from '../dynamic-dialog/dynamic-dialog.service';
-import { AuthService } from '../../auth/auth.service';
 import { LoginCompontent } from '../../auth/login/login.component';
 import { RouterLink } from '@angular/router';
 
@@ -28,7 +27,6 @@ import { RouterLink } from '@angular/router';
 export class NavbarComponent implements AfterViewInit {
   public navbar = viewChild<ElementRef<HTMLElement>>('navbar');
   public mobileMenu = viewChild<ElementRef<HTMLElement>>('mobileMenu');
-  public authService = inject(AuthService);
   public isScrolled = false;
   public isMenuOpen: WritableSignal<boolean> = signal(false);
   public navHeight: WritableSignal<number> = signal(0);

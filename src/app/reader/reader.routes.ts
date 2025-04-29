@@ -10,12 +10,13 @@ export const readerRoutes: Routes = [
     children: [
       {
         path: '',
-        component: PostsListComponent
+        component: PostsListComponent,
       },
       {
-      path: 'details/:id',
-      component: PostComponent,
-      pathMatch: 'full',
-    }]
-  }
+        path: 'details/:id',
+        component: PostComponent,
+        pathMatch: 'full',
+      },
+    ],
+  },
 ];

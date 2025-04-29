@@ -18,7 +18,6 @@ import {
   Validators,
 } from '@angular/forms';
 import { AdminApiService } from '../../_services/admin-api.service';
-import { FirestoreModule, Timestamp } from '@angular/fire/firestore';
 import { HighlightModule } from 'ngx-highlightjs';
 import { QuillEditorComponent, Range } from 'ngx-quill';
 import { Post } from '../../../shared/_models/post.interface';
@@ -36,7 +35,6 @@ import { AddImageForm } from './add-image/add-image-controls.interface';
   standalone: true,
   imports: [
     ReactiveFormsModule,
-    FirestoreModule,
     FormsModule,
     QuillEditorComponent,
     HighlightModule,
@@ -65,7 +63,7 @@ export class AddPostComponent implements OnInit {
     this.blogForm = this.fb.group({
       title: ['', [Validators.required]],
       content: ['', [Validators.required]],
-      date: new Timestamp(0, 0),
+      date: null,
       description: [null],
       isDraft: [false],
     }) as FormGroup<PostForm>;
@@ -94,7 +92,7 @@ export class AddPostComponent implements OnInit {
       this.blogForm.controls.content.setValue(cleanedContent);
       this.blogForm.controls.isDraft.setValue(isDraft);
       if (!this.blogForm.controls.date.value) {
-        this.blogForm.controls.date.setValue(Timestamp.fromDate(new Date()));
+        this.blogForm.controls.date.setValue(null);
       }
       if (this.postId) {
         this.apiService.updatePost(this.postId, this.blogForm.value as Post);

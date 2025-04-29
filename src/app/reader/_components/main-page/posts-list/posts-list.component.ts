@@ -15,9 +15,8 @@ import {
   signal,
   WritableSignal,
 } from '@angular/core';
-import { FirestoreModule } from '@angular/fire/firestore';
 import { RouterModule } from '@angular/router';
-import { map, Observable } from 'rxjs';
+import { map, Observable, of } from 'rxjs';
 import { Post } from '../../../../shared/_models/post.interface';
 import { ReaderApiService } from '../../../_services/reader-api.service';
 import { AboutMeComponent } from '../../../../shared/about-me/about-me.component';
@@ -28,7 +27,6 @@ import { TAGS } from '../../../../utlis/tags';
   selector: 'app-posts-list',
   standalone: true,
   imports: [
-    FirestoreModule,
     AsyncPipe,
     RouterModule,
     AboutMeComponent,
@@ -72,13 +70,6 @@ export class PostsListComponent {
     this.scrollProgress.set(scrollPercentage);
   }
 
-  posts$: Observable<Post[]> = this.apiService.posts$.pipe(
-    map((posts) =>
-      posts.map((post) => ({
-        ...post,
-        dateJS: post.date.toDate(),
-      })),
-    ),
-  );
+  posts$: Observable<Post[]> = of([]);
   protected readonly TAGS = TAGS;
 }
