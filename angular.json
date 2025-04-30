@@ -21,7 +21,10 @@
             "index": "src/index.html",
             "browser": "src/main.ts",
             "allowedCommonJsDependencies": [
-              "highlight.js"
+              "highlight.js",
+              "quill-delta",
+              "whatwg-url",
+              "@supabase/node-fetch"
             ],
             "polyfills": [
               "zone.js"
@@ -40,11 +43,10 @@
             "scripts": [],
             "server": "src/main.server.ts",
             "prerender": {
+              "discoverRoutes": false,
               "routesFile": "routes.txt"
             },
-            "ssr": {
-              "entry": "server.ts"
-            }
+            "ssr": true
           },
           "configurations": {
             "production": {

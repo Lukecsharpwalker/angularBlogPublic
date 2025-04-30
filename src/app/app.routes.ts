@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { readerRoutes } from './reader/reader.routes';
-import { authGuard } from './auth/_guards/auth.guard';
+import { authAdminGuard } from './auth/_guards/authAdminGuard';
 
 export const routes: Routes = [
   {
@@ -9,12 +9,13 @@ export const routes: Routes = [
   },
   {
     path: 'admin',
-    loadChildren: () => import('./admin/admin.routes').then(r => r.adminRoutes),
+    loadChildren: () =>
+      import('./admin/admin.routes').then((r) => r.adminRoutes),
     title: 'Admin',
-    canActivate: [authGuard],
+    canActivate: [authAdminGuard],
   },
   {
-    path:'**',
-    redirectTo: ''
+    path: '**',
+    redirectTo: '',
   },
 ];

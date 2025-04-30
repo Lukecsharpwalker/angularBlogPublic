@@ -1,3 +1,4 @@
+@use 'tailwindcss/utilities';
 @import "../node_modules/quill/dist/quill.core.css";
 @import "../node_modules/quill/dist/quill.snow.css";
 @import 'highlight.js/styles/atom-one-dark.css';
@@ -80,8 +81,6 @@ h4 {
   @apply bg-gray-300 text-gray-500 cursor-not-allowed;
 }
 
-/* Import TailwindCSS */
-@import 'tailwindcss/utilities';
 
 /* Additional styles for the card component */
 .post-card {

@@ -52,6 +52,7 @@ export class PostsListComponent {
         this.onScroll.bind(this),
       );
     });
+    console.log('init');
   }
 
   onScroll(event: Event) {

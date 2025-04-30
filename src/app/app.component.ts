@@ -17,24 +17,14 @@ import { SupabaseService } from './services/supabase.service';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
-export class AppComponent implements OnInit {
-  cookieConsentService = inject(CookieConsentService);
-  viewContainerRef = inject(ViewContainerRef);
-
-  supabase = inject(SupabaseService);
+export class AppComponent {
+  // cookieConsentService = inject(CookieConsentService);
+  // viewContainerRef = inject(ViewContainerRef);
 
   constructor() {
-    afterNextRender(() =>
-      this.cookieConsentService.showCookieConsent(this.viewContainerRef),
-    );
-  }
-
-  ngOnInit() {
-    this.supabase.getClient
-      .from('tags')
-      .select('*')
-      .then((tags) => {
-        console.log(tags);
-      });
+    console.log('AppComponent');
+    // afterNextRender(() =>
+    //   this.cookieConsentService.showCookieConsent(this.viewContainerRef),
+    // );
   }
 }
