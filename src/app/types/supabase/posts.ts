@@ -1,5 +1,6 @@
 import { Profile } from './profiles';
 import { PostTagList } from './post-tags';
+import { Comment } from './comments';
 
 export type Post = {
   content: string;
@@ -10,8 +11,12 @@ export type Post = {
   title: string;
   user_id: string;
   author?: Profile;
-  post_tags?: PostTagList[];
-  comments?: Comment[];
+  post_tags: PostTagList[];
+  comments: Comment[];
+  category: string | null;
+  updated: string | null;
+  readingTime: number | null;
+  tableOfContents: [];
 };
 
 export type PostInsert = {

@@ -1,3 +1,5 @@
+import { Profile } from './profiles';
+
 export type Comment = {
   content: string;
   created_at: string | null;
@@ -6,6 +8,7 @@ export type Comment = {
   is_reported: boolean | null;
   post_id: string;
   user_id: string | null;
+  author: Profile | null;
 };
 
 export type CommentInsert = {

@@ -1,49 +1,77 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  Injector,
-  Input,
   OnInit,
   inject,
-  AfterViewInit,
   ViewContainerRef,
   afterNextRender,
+  Signal,
+  input,
 } from '@angular/core';
 import { ReaderApiService } from '../../../_services/reader-api.service';
-import { AsyncPipe, DatePipe } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { CommentsComponent } from './comments/comments.component';
 import { AddCommentComponent } from './add-comment/add-comment.component';
 import { Router } from '@angular/router';
-import { DomSanitizer } from '@angular/platform-browser';
 import { DynamicDialogService } from '../../../../shared/dynamic-dialog/dynamic-dialog.service';
 import { CodeBlockModalComponent } from './code-block-modal-component/code-block-modal-component.component';
+import { PostStore } from './post.store';
+import { CommentsStore } from './comments/comments.store';
+import { Post } from '../../../../types/supabase';
 
 @Component({
   selector: 'app-post',
   standalone: true,
-  providers: [ReaderApiService, DatePipe],
+  providers: [ReaderApiService, DatePipe, PostStore, CommentsStore],
   templateUrl: './post.component.html',
   styleUrl: './post.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [AsyncPipe, CommentsComponent, AddCommentComponent, DatePipe],
+  imports: [CommentsComponent, AddCommentComponent, DatePipe],
 })
-export class PostComponent implements OnInit, AfterViewInit {
-  @Input() id!: string;
+export class PostComponent implements OnInit {
+  id = input.required<string>();
 
-  apiService = inject(ReaderApiService);
-  injector = inject(Injector);
   router = inject(Router);
-  datePipe = inject(DatePipe);
+  postStore = inject(PostStore);
+
+  post: Signal<Post | null> = this.postStore.post;
 
   private dialogService = inject(DynamicDialogService);
-  private sanitizer = inject(DomSanitizer);
   private viewContainerRef = inject(ViewContainerRef);
 
   date: string = '';
 
-  ngOnInit() {}
-
   constructor() {
+    this.addEventsForOpenModalWithCode();
+  }
+
+  ngOnInit() {
+    this.postStore.getPost(this.id());
+  }
+
+  goBack(): void {
+    this.router.navigate(['/posts']);
+  }
+
+  private showCodeModal(event: Event) {
+    const preElement = event.currentTarget as HTMLElement;
+    const codeElement = preElement.querySelector('code');
+    const code = codeElement?.innerHTML || '';
+    const language = preElement.getAttribute('data-language') || '';
+
+    this.dialogService.openDialog(
+      this.viewContainerRef,
+      {
+        title: `${language.toUpperCase()} Code`,
+        content: '',
+        primaryButton: 'Close',
+        data: { code, language },
+      },
+      CodeBlockModalComponent,
+    );
+  }
+
+  private addEventsForOpenModalWithCode() {
     afterNextRender(() => {
       const processedNodes = new Set<Node>();
 
@@ -85,29 +113,5 @@ export class PostComponent implements OnInit, AfterViewInit {
         subtree: true,
       });
     });
-  }
-
-  ngAfterViewInit() {}
-
-  private showCodeModal(event: Event) {
-    const preElement = event.currentTarget as HTMLElement;
-    const codeElement = preElement.querySelector('code');
-    const code = codeElement?.innerHTML || '';
-    const language = preElement.getAttribute('data-language') || '';
-
-    this.dialogService.openDialog(
-      this.viewContainerRef,
-      {
-        title: `${language.toUpperCase()} Code`,
-        content: '',
-        primaryButton: 'Close',
-        data: { code, language },
-      },
-      CodeBlockModalComponent,
-    );
-  }
-
-  goBack(): void {
-    this.router.navigate(['/posts']);
   }
 }

@@ -1,37 +1,38 @@
-@let post = post$ | async;
-@if (post) {
+@if (post()) {
+  <button (click)="goBack()" class="btn btn-outline mt-6 rounded-badge"><</button>
   <div class="flex justify-center -mx-2 xl:-mx-48">
     <img
-      class="w-full h-80 object-cover mt-10  rounded-2xl"
+      class="w-full h-80 object-cover mt-10 rounded-2xl"
       src="{{ date }}-post.webp"
-      alt="{{ post.title }}"
+      alt="{{ post()?.title }}"
     />
   </div>
 }
 
+
+
 <div class="container mx-auto grid grid-cols-12 gap-8">
-  <aside class="col-span-12 2xl:col-span-3
-         bg-white/0 backdrop-blur-lg border border-white/90
-         rounded-lg shadow-lg p-6 self-start -mt-16 mb-16 2xl:my-36"
+  <aside
+    class="col-span-12 2xl:col-span-3 bg-white/0 backdrop-blur-lg border border-white/90 rounded-lg shadow-lg p-6 self-start -mt-16 mb-16 2xl:my-36"
   >
     <h2 class="text-xl font-bold mb-4">📌 Article Information</h2>
     <ul class="text-gray-700 bg-gray-50 space-y-2 p-4 rounded-2xl shadow-lg">
-      <li><strong>Category:</strong> {{ post?.category }}</li>
-      <li><strong>Updated:</strong> {{ post?.updated | date }}</li>
-      <li><strong>Author:</strong> {{ post?.author }}</li>
-      <li><strong>Reading Time:</strong> {{ post?.readingTime }} min</li>
+      <li><strong>Category:</strong> {{ post()?.category }}</li>
+      <li><strong>Updated:</strong> {{ post()?.updated | date }}</li>
+      <li><strong>Author:</strong> {{ post()?.author }}</li>
+      <li><strong>Reading Time:</strong> {{ post()?.readingTime }} min</li>
       <li><strong>Difficulty:</strong> ⭐⭐⭐☆</li>
     </ul>
 
     <h2 class="text-xl font-bold mt-6 mb-4">📖 Table of Contents</h2>
     <ul class="text-gray-700 bg-gray-50 space-y-2 p-4 rounded-2xl shadow-lg">
-      @for (tableOfContents of post?.tableOfContents; track tableOfContents?.id) {
-        <li>
-          <a href="#{{ tableOfContents?.id }}" class="text-blue-600 hover:underline">
-            {{ tableOfContents.title }}
-          </a>
-        </li>
-      }
+      <!--      @for (tableOfContents of post()?.tableOfContents; track tableOfContents?.id) {-->
+      <!--        <li>-->
+      <!--          <a href="#{{ tableOfContents?.id }}" class="text-blue-600 hover:underline">-->
+      <!--            {{ tableOfContents.title }}-->
+      <!--          </a>-->
+      <!--        </li>-->
+      <!--      }-->
     </ul>
   </aside>
 
@@ -39,16 +40,16 @@
     class="col-span-12 2xl:col-span-9 bg-white/0 backdrop-blur-lg border border-white/90 rounded-lg shadow-lg md:p-8 -mt-10"
   >
     <div class="w-full">
-      @if (post) {
+      @if (post()) {
         <h1
           class="font-bold text-2xl md:text-4xl text-center my-5 [webkit-text-stroke:1px_white] [text-shadow:_2px_2px_4px_rgba(255,255,255,0.8)] tittle"
         >
-          {{ post.title }}
+          {{ post()?.title }}
         </h1>
         <p
           class="text-center [webkit-text-stroke:1px_white] [text-shadow:_2px_2px_4px_rgba(255,255,255,0.8)] text-gray-500"
         >
-          {{ post.author }} - {{ post.dateJS | date }}
+          {{ post()?.author }} - {{ post()?.created_at | date }}
         </p>
         <!-- TODO: Add social share buttons -->
 
@@ -58,14 +59,14 @@
           <div
             class="absolute shadow-2xl inset-0 blur-2xl opacity-100 rounded-3xl -z-10 bg-gradient-to-br from-quaternary/90 via-[#7A9E7E]/50 to-primary"
           ></div>
-          <div [innerHTML]="post.content"></div>
+          <div [innerHTML]="post()?.content"></div>
         </div>
 
         <hr class="border-gray-300 my-4"/>
-        <add-comment [postId]="id"></add-comment>
+        <add-comment [postId]="id()"></add-comment>
         <hr class="border-gray-300 my-4"/>
         @defer {
-          <comments [postId]="id!" [comments$]="comments$()"></comments>
+          <comments [postId]="id()!" [comments]="post()?.comments"></comments>
         }
       } @else {
         <p class="text-gray-800 text-center">Post not found.</p>
