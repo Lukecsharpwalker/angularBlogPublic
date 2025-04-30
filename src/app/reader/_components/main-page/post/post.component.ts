@@ -35,22 +35,25 @@ export class PostComponent implements OnInit {
   postStore = inject(PostStore);
 
   post: Signal<Post | null> = this.postStore.post;
+  date: string = '';
 
   private dialogService = inject(DynamicDialogService);
   private viewContainerRef = inject(ViewContainerRef);
-
-  date: string = '';
 
   constructor() {
     this.addEventsForOpenModalWithCode();
   }
 
   ngOnInit() {
-    this.postStore.getPost(this.id());
+    this.loadPost();
   }
 
   goBack(): void {
     this.router.navigate(['/posts']);
+  }
+
+  private loadPost(): void {
+    this.postStore.getPost(this.id());
   }
 
   private showCodeModal(event: Event) {
@@ -73,6 +76,7 @@ export class PostComponent implements OnInit {
 
   private addEventsForOpenModalWithCode() {
     afterNextRender(() => {
+      //TODO: Move to the service
       const processedNodes = new Set<Node>();
 
       const observer = new MutationObserver((mutations) => {

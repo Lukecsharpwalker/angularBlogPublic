@@ -9,6 +9,7 @@ import {
   FormBuilder,
   Validators,
   ReactiveFormsModule,
+  FormControl,
 } from '@angular/forms';
 import { ReaderApiService } from '../../../../_services/reader-api.service';
 import { CommentsStore } from '../comments/comments.store';
@@ -25,17 +26,15 @@ import { Comment } from '../../../../../types/supabase';
 })
 export class AddCommentComponent {
   @Input() postId!: string;
-  commentForm: FormGroup;
 
-  private fb = inject(FormBuilder);
-  private apiService = inject(ReaderApiService);
+  commentForm: FormGroup = new FormGroup({
+    content: new FormControl<string>('', {
+      validators: [Validators.required],
+      nonNullable: true,
+    }),
+  });
+
   private commentsStore = inject(CommentsStore);
-
-  constructor() {
-    this.commentForm = this.fb.group({
-      content: ['', [Validators.required]],
-    });
-  }
 
   onSubmit(): void {
     if (this.commentForm.valid) {

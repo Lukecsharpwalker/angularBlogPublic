@@ -45,18 +45,12 @@ export class PostsListComponent implements OnInit {
   initialScroll = 2;
 
   constructor() {
-    this.scrollProgress.set(this.initialScroll);
-    afterNextRender(() => {
-      this.scroll()?.nativeElement.addEventListener(
-        'scroll',
-        this.onScroll.bind(this),
-      );
-    });
+    this.initializeScrolling();
   }
 
-  //TODO: FIX HACK FOR PRERENDERING
   ngOnInit() {
-    setTimeout(() => {}, 0);
+    //TODO: FIX HACK FOR PRERENDERING
+    this.applyPrerenderingHack();
   }
 
   onScroll(event: Event) {
@@ -68,5 +62,19 @@ export class PostsListComponent implements OnInit {
     const scrollPercentage = (scrollLeft / (scrollWidth - clientWidth)) * 100;
 
     this.scrollProgress.set(scrollPercentage);
+  }
+
+  private applyPrerenderingHack(): void {
+    setTimeout(() => {}, 0);
+  }
+
+  private initializeScrolling(): void {
+    this.scrollProgress.set(this.initialScroll);
+    afterNextRender(() => {
+      this.scroll()?.nativeElement.addEventListener(
+        'scroll',
+        this.onScroll.bind(this),
+      );
+    });
   }
 }

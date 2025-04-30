@@ -11,6 +11,7 @@ import {
 } from '@angular/core';
 import {
   FormBuilder,
+  FormControl,
   FormGroup,
   FormsModule,
   NgModel,
@@ -50,26 +51,32 @@ export class AddPostComponent implements OnInit {
   @Input() postId?: string;
   quill = viewChild.required<QuillEditorComponent>('quill');
 
-  blogForm: FormGroup<PostForm>;
-  range: Range | null = null;
-
   viewContainerRef = inject(ViewContainerRef);
   dialogService = inject(DynamicDialogService<AddImageForm>);
 
-  private fb = inject(FormBuilder);
+  blogForm: FormGroup<PostForm> = new FormGroup<PostForm>({
+    title: new FormControl('', {
+      validators: [Validators.required],
+      nonNullable: true,
+    }),
+    content: new FormControl('', {
+      validators: [Validators.required],
+      nonNullable: true,
+    }),
+    date: new FormControl<Date | null>(null),
+    description: new FormControl<string | null>(null),
+    isDraft: new FormControl(false, { nonNullable: true }),
+  });
+  range: Range | null = null;
+
   private apiService = inject(AdminApiService);
 
-  constructor() {
-    this.blogForm = this.fb.group({
-      title: ['', [Validators.required]],
-      content: ['', [Validators.required]],
-      date: null,
-      description: [null],
-      isDraft: [false],
-    }) as FormGroup<PostForm>;
+  ngOnInit(): void {
+    this.loadPostIfIdExists();
+    this.initializeQuill();
   }
 
-  ngOnInit(): void {
+  private loadPostIfIdExists(): void {
     if (this.postId) {
       this.apiService.getPostById(this.postId).subscribe((post) => {
         if (post) {
@@ -77,7 +84,6 @@ export class AddPostComponent implements OnInit {
         }
       });
     }
-    this.initializeQuill();
   }
 
   async initializeQuill() {

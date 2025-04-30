@@ -38,9 +38,7 @@ export class DynamicDialogComponent<C = unknown> implements OnInit {
   ModalCloseStatusEnum = ModalCloseStatusEnum;
 
   ngOnInit(): void {
-    if (this.divEl() && this.component) {
-      this.componentRef = this.divEl().createComponent(this.component);
-    }
+    this.createDynamicComponent();
   }
 
   closeDialog(
@@ -56,5 +54,11 @@ export class DynamicDialogComponent<C = unknown> implements OnInit {
 
   onOverlayClick($event: MouseEvent) {
     console.log('Overlay clicked', $event);
+  }
+
+  private createDynamicComponent(): void {
+    if (this.divEl() && this.component) {
+      this.componentRef = this.divEl().createComponent(this.component);
+    }
   }
 }

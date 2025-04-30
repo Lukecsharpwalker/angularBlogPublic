@@ -13,9 +13,9 @@ import { environment } from '../../environments/environment';
   providedIn: 'root',
 })
 export class SupabaseService {
-  private readonly supabase: SupabaseClient;
-  public session: AuthSession | null = null;
+  private supabase: SupabaseClient;
   private readonly ngZone = inject(NgZone);
+  public session: AuthSession | null = null;
 
   constructor() {
     this.supabase = this.ngZone.runOutsideAngular(() =>

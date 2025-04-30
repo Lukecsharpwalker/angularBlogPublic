@@ -34,12 +34,9 @@ export class NavbarComponent implements AfterViewInit {
 
   private dynamicDialogService = inject(DynamicDialogService);
   private viewContainerRef = inject(ViewContainerRef);
-  private supabaseService = inject(SupabaseService);
 
   constructor() {
-    afterNextRender(() => {
-      this.navHeight.set(this.navbar()?.nativeElement.scrollHeight ?? 0);
-    });
+    this.initializeNavHeight();
   }
 
   ngAfterViewInit() {}
@@ -64,6 +61,12 @@ export class NavbarComponent implements AfterViewInit {
         );
       }, 1);
     }
+  }
+
+  private initializeNavHeight(): void {
+    afterNextRender(() => {
+      this.navHeight.set(this.navbar()?.nativeElement.scrollHeight ?? 0);
+    });
   }
 
   @HostListener('window:scroll', [])
