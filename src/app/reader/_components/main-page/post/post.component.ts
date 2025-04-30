@@ -4,20 +4,15 @@ import {
   Injector,
   Input,
   OnInit,
-  Signal,
   inject,
-  runInInjectionContext,
   AfterViewInit,
   ViewContainerRef,
   afterNextRender,
 } from '@angular/core';
 import { ReaderApiService } from '../../../_services/reader-api.service';
 import { AsyncPipe, DatePipe } from '@angular/common';
-import { Observable, from, map, of } from 'rxjs';
 import { CommentsComponent } from './comments/comments.component';
 import { AddCommentComponent } from './add-comment/add-comment.component';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { Comment } from '../../../../shared/_models/comment.inteface';
 import { Router } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 import { DynamicDialogService } from '../../../../shared/dynamic-dialog/dynamic-dialog.service';
@@ -33,7 +28,6 @@ import { CodeBlockModalComponent } from './code-block-modal-component/code-block
   imports: [AsyncPipe, CommentsComponent, AddCommentComponent, DatePipe],
 })
 export class PostComponent implements OnInit, AfterViewInit {
-  //TODO: add resolver
   @Input() id!: string;
 
   apiService = inject(ReaderApiService);
@@ -45,16 +39,9 @@ export class PostComponent implements OnInit, AfterViewInit {
   private sanitizer = inject(DomSanitizer);
   private viewContainerRef = inject(ViewContainerRef);
 
-  post$!: Observable<any | null>;
-  comments$!: Signal<Comment[] | undefined>;
   date: string = '';
 
-  ngOnInit() {
-    this.post$ = of(null);
-    this.comments$! = runInInjectionContext(this.injector, () =>
-      toSignal(this.apiService.getComments(this.id)),
-    );
-  }
+  ngOnInit() {}
 
   constructor() {
     afterNextRender(() => {
