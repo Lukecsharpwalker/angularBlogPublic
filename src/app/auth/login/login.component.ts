@@ -7,6 +7,7 @@ import {
 } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { DynamicDialogService } from '../../shared/dynamic-dialog/dynamic-dialog.service';
+import { SupabaseService } from '../../services/supabase.service';
 import { Credentials } from '../../shared/_models/credentials.interface';
 import {
   ModalCloseStatusEnum,
@@ -32,27 +33,39 @@ export class LoginCompontent {
   loginError: WritableSignal<boolean> = signal(false);
 
   private dynamicDialogService = inject(DynamicDialogService);
+  private supabaseService = inject(SupabaseService);
 
   onSubmit(): void {
     this.isSubmitted = true;
-    // this.authService.loginWithEmail(this.form.value as Credentials)
-    //   .then(() => {
-    //     this.loginError.set(false);
-    //     const status = {
-    //       closeStatus: ModalCloseStatusEnum.ACCEPTED
-    //     } as ModalStatus;
-    //     this.dynamicDialogService.closeDialog(status);
-    //   })
-    //   .catch(() => {
-    //     this.loginError.set(true);
-    //   });
+    const credentials = this.form.value as Credentials;
+
+    this.supabaseService.signInWithPassword(credentials.email, credentials.password)
+      .then(({ data, error }) => {
+        if (error) {
+          this.loginError.set(true);
+          return;
+        }
+
+        this.loginError.set(false);
+        const status = {
+          closeStatus: ModalCloseStatusEnum.ACCEPTED
+        } as ModalStatus;
+        this.dynamicDialogService.closeDialog(status);
+      })
+      .catch(() => {
+        this.loginError.set(true);
+      });
   }
 
   onGoogleLogin() {
-    // this.authService.loginGoogle();
-    // const status = {
-    //   closeStatus: ModalCloseStatusEnum.ACCEPTED
-    // } as ModalStatus;
-    // this.dynamicDialogService.closeDialog(status);
+    this.supabaseService.signInWithProvider('google')
+      .then(({ data, error }) => {
+        if (!error) {
+          const status = {
+            closeStatus: ModalCloseStatusEnum.ACCEPTED
+          } as ModalStatus;
+          this.dynamicDialogService.closeDialog(status);
+        }
+      });
   }
 }

@@ -14,6 +14,7 @@ import {
 import { DynamicDialogService } from '../dynamic-dialog/dynamic-dialog.service';
 import { LoginCompontent } from '../../auth/login/login.component';
 import { RouterLink } from '@angular/router';
+import { SupabaseService } from '../../services/supabase.service';
 
 @Component({
   selector: 'blog-navbar',
@@ -33,6 +34,7 @@ export class NavbarComponent implements AfterViewInit {
 
   private dynamicDialogService = inject(DynamicDialogService);
   private viewContainerRef = inject(ViewContainerRef);
+  private supabaseService = inject(SupabaseService);
 
   constructor() {
     afterNextRender(() => {
