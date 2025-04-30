@@ -46,7 +46,9 @@
               "discoverRoutes": false,
               "routesFile": "routes.txt"
             },
-            "ssr": true
+            "ssr": {
+              "entry": "server.ts"
+            }
           },
           "configurations": {
             "production": {
@@ -68,8 +70,6 @@
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true,
-              "ssr": false,
-              "prerender": false,
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",

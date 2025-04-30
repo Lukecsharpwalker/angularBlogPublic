@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable, NgZone } from '@angular/core';
 import {
   AuthChangeEvent,
   AuthSession,
@@ -15,11 +15,11 @@ import { environment } from '../../environments/environment';
 export class SupabaseService {
   private readonly supabase: SupabaseClient;
   public session: AuthSession | null = null;
+  private readonly ngZone = inject(NgZone);
 
   constructor() {
-    this.supabase = createClient(
-      environment.supabaseUrl,
-      environment.supabaseKey,
+    this.supabase = this.ngZone.runOutsideAngular(() =>
+      createClient(environment.supabaseUrl, environment.supabaseKey),
     );
   }
 

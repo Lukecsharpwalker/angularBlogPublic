@@ -9,6 +9,7 @@ import {
   ElementRef,
   signal,
   WritableSignal,
+  OnInit,
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AboutMeComponent } from '../../../../shared/about-me/about-me.component';
@@ -32,7 +33,7 @@ import { TagsStore } from '../../../../shared/stores/tags.store';
   changeDetection: ChangeDetectionStrategy.OnPush,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class PostsListComponent {
+export class PostsListComponent implements OnInit {
   scroll = viewChild<ElementRef<HTMLElement>>('scrollContainer');
   scrollProgress: WritableSignal<number> = signal(0);
   postStore = inject(PostsStore);
@@ -46,13 +47,16 @@ export class PostsListComponent {
   constructor() {
     this.scrollProgress.set(this.initialScroll);
     afterNextRender(() => {
-      console.log('Scroll:', this.scroll());
       this.scroll()?.nativeElement.addEventListener(
         'scroll',
         this.onScroll.bind(this),
       );
     });
-    console.log('init');
+  }
+
+  //TODO: FIX HACK FOR PRERENDERING
+  ngOnInit() {
+    setTimeout(() => {}, 0);
   }
 
   onScroll(event: Event) {
