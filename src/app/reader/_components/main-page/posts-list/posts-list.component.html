@@ -5,7 +5,7 @@
     class="shadow-lg bg-white p-4 sm:p-6 sm:px-14 rounded-[32px] sm:rounded-[64px] overflow-x-scroll hide-scrollbar whitespace-nowrap scroll-smooth"
   >
     <div class="inline-flex space-x-4 gap-x-0 md:gap-x-6">
-      @for (tag of tags(); track tag.name) {
+      @for (tag of tags(); track tag.id) {
         <div class="flex flex-col items-center min-w-24 group">
           <div
             [ngStyle]="{ 'background-color': tag.color }"

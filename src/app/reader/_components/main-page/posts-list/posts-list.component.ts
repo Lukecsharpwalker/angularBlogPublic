@@ -35,17 +35,17 @@ import { TagsStore } from '../../../../shared/stores/tags.store';
 })
 export class PostsListComponent implements OnInit {
   scroll = viewChild<ElementRef<HTMLElement>>('scrollContainer');
-  scrollProgress: WritableSignal<number> = signal(0);
+
   postStore = inject(PostsStore);
   tagsStore = inject(TagsStore);
 
+  scrollProgress: WritableSignal<number> = signal(0);
   posts = this.postStore.posts;
   tags = this.tagsStore.tags;
-
-  initialScroll = 2;
+  initialTagScrollProgressBarForMobile = 2;
 
   constructor() {
-    this.initializeScrolling();
+    this.initializeScrollingForMobileView();
   }
 
   ngOnInit() {
@@ -68,8 +68,8 @@ export class PostsListComponent implements OnInit {
     setTimeout(() => {}, 0);
   }
 
-  private initializeScrolling(): void {
-    this.scrollProgress.set(this.initialScroll);
+  private initializeScrollingForMobileView(): void {
+    this.scrollProgress.set(this.initialTagScrollProgressBarForMobile);
     afterNextRender(() => {
       this.scroll()?.nativeElement.addEventListener(
         'scroll',
