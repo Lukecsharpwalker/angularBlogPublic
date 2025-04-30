@@ -9,13 +9,12 @@ import {
   ElementRef,
   signal,
   WritableSignal,
-  OnInit,
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AboutMeComponent } from '../../../../shared/about-me/about-me.component';
 import { PostCardComponent } from './post-card/post-card.component';
-import { TAGS } from '../../../../utlis/tags';
 import { PostsStore } from './posts.store';
+import { TagsStore } from '../../../../shared/stores/tags.store';
 
 @Component({
   selector: 'app-posts-list',
@@ -37,7 +36,10 @@ export class PostsListComponent {
   scroll = viewChild<ElementRef<HTMLElement>>('scrollContainer');
   scrollProgress: WritableSignal<number> = signal(0);
   postStore = inject(PostsStore);
+  tagsStore = inject(TagsStore);
+
   posts = this.postStore.posts;
+  tags = this.tagsStore.tags;
 
   initialScroll = 2;
 
@@ -62,6 +64,4 @@ export class PostsListComponent {
 
     this.scrollProgress.set(scrollPercentage);
   }
-
-  protected readonly TAGS = TAGS;
 }
